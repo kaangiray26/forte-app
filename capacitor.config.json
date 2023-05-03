@@ -1,0 +1,6 @@
+{
+  "appId": "forte.buzl.uk",
+  "appName": "Forte",
+  "webDir": "src/dist",
+  "bundledWebRuntime": false
+}

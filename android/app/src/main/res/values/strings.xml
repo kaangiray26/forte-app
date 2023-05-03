@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Forte</string>
+    <string name="title_activity_main">Forte</string>
+    <string name="package_name">forte.buzl.uk</string>
+    <string name="custom_url_scheme">forte.buzl.uk</string>
+</resources>

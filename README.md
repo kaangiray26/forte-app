@@ -1,2 +1,2 @@
-# forte-app
+# Forte App
 Forte Mobile App
