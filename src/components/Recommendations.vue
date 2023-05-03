@@ -1,7 +1,7 @@
 <template>
     <div class="card rounded-0 border-0 mx-3" v-if="loaded">
         <div class="card-body px-3">
-            <div v-if="loaded">
+            <div>
                 <div class="d-flex justify-content-between align-items-center">
                     <h3 class="theme-color fw-bold mb-0">Recommended for you</h3>
                     <div class="dropdown">
