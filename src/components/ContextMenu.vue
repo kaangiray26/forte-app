@@ -14,6 +14,7 @@
 import { ref, onMounted } from "vue";
 import { notify, action } from "/js/events.js";
 import { useRouter } from 'vue-router'
+import { Share } from '@capacitor/share';
 
 import TrackContextModal from "./context_menu/TrackContextModal.vue";
 import AlbumContextModal from "./context_menu/AlbumContextModal.vue";
@@ -642,12 +643,18 @@ async function contextMenuEvent(event) {
     }
 
     if (event == 'shareTrack') {
-        navigator.clipboard.writeText("https://forte.buzl.uk/track/" + selectedItem.value.id).then(function () {
-            notify({
-                "title": "Copied to clipboard",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        // navigator.clipboard.writeText("https://forte.buzl.uk/track/" + selectedItem.value.id).then(function () {
+        //     notify({
+        //         "title": "Shared",
+        //     })
+        // }, function (err) {
+        //     console.error('Async: Could not copy text: ', err);
+        // });
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: "https://forte.buzl.uk/track/" + selectedItem.value.id,
+            dialogTitle: 'Share with friends',
         });
         return
     }

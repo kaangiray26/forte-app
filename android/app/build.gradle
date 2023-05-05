@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
+    namespace "forte.buzl.uk"
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "forte.buzl.uk"
