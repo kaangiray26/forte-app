@@ -328,56 +328,51 @@ async function federatedContextMenuEvent(event) {
 
     // Share Events
     if (event == 'shareArtist') {
-        navigator.clipboard.writeText(`https://forte.buzl.uk/artist/${selectedItem.value.id}@${selectedItem.value.server}`).then(function () {
-            notify({
-                "title": "Copied to clipboard.",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: `https://forte.buzl.uk/artist/${selectedItem.value.id}@${selectedItem.value.server}`,
+            dialogTitle: "Share with friends",
         });
         return
     }
 
     if (event == 'shareAlbum') {
-        navigator.clipboard.writeText(`https://forte.buzl.uk/album/${selectedItem.value.id}@${selectedItem.value.server}`).then(function () {
-            notify({
-                "title": "Copied to clipboard.",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: `https://forte.buzl.uk/album/${selectedItem.value.id}@${selectedItem.value.server}`,
+            dialogTitle: "Share with friends",
         });
         return
     }
 
     if (event == 'shareTrack') {
-        navigator.clipboard.writeText(`https://forte.buzl.uk/track/${selectedItem.value.id}@${selectedItem.value.server}`).then(function () {
-            notify({
-                "title": "Copied to clipboard",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: `https://forte.buzl.uk/track/${selectedItem.value.id}@${selectedItem.value.server}`,
+            dialogTitle: "Share with friends",
         });
         return
     }
 
     if (event == 'sharePlaylist') {
-        navigator.clipboard.writeText(`https://forte.buzl.uk/playlist/${selectedItem.value.id}@${selectedItem.value.server}`).then(function () {
-            notify({
-                "title": "Copied to clipboard",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: `https://forte.buzl.uk/playlist/${selectedItem.value.id}@${selectedItem.value.server}`,
+            dialogTitle: "Share with friends",
         });
         return
     }
 
     if (event == 'shareUser') {
-        navigator.clipboard.writeText(`https://forte.buzl.uk/user/${selectedItem.value.title}@${selectedItem.value.server}`).then(function () {
-            notify({
-                "title": "Copied to clipboard",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: `https://forte.buzl.uk/user/${selectedItem.value.title}@${selectedItem.value.server}`,
+            dialogTitle: "Share with friends",
         });
         return
     }
@@ -621,62 +616,51 @@ async function contextMenuEvent(event) {
 
     // Share Events
     if (event == 'shareArtist') {
-        navigator.clipboard.writeText("https://forte.buzl.uk/artist/" + selectedItem.value.id).then(function () {
-            notify({
-                "title": "Copied to clipboard.",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: "https://forte.buzl.uk/artist/" + selectedItem.value.id,
+            dialogTitle: "Share with friends",
         });
         return
     }
 
     if (event == 'shareAlbum') {
-        navigator.clipboard.writeText("https://forte.buzl.uk/album/" + selectedItem.value.id).then(function () {
-            notify({
-                "title": "Copied to clipboard.",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: "https://forte.buzl.uk/album/" + selectedItem.value.id,
+            dialogTitle: "Share with friends",
         });
         return
     }
 
     if (event == 'shareTrack') {
-        // navigator.clipboard.writeText("https://forte.buzl.uk/track/" + selectedItem.value.id).then(function () {
-        //     notify({
-        //         "title": "Shared",
-        //     })
-        // }, function (err) {
-        //     console.error('Async: Could not copy text: ', err);
-        // });
         await Share.share({
             title: selectedItem.value.title,
             text: "Check out this on Forte!",
             url: "https://forte.buzl.uk/track/" + selectedItem.value.id,
-            dialogTitle: 'Share with friends',
+            dialogTitle: "Share with friends",
         });
         return
     }
 
     if (event == 'sharePlaylist') {
-        navigator.clipboard.writeText("https://forte.buzl.uk/playlist/" + selectedItem.value.id).then(function () {
-            notify({
-                "title": "Copied to clipboard",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: "https://forte.buzl.uk/playlist/" + selectedItem.value.id,
+            dialogTitle: "Share with friends",
         });
         return
     }
 
     if (event == 'shareUser') {
-        navigator.clipboard.writeText("https://forte.buzl.uk/user/" + selectedItem.value.title).then(function () {
-            notify({
-                "title": "Copied to clipboard",
-            })
-        }, function (err) {
-            console.error('Async: Could not copy text: ', err);
+        await Share.share({
+            title: selectedItem.value.title,
+            text: "Check out this on Forte!",
+            url: "https://forte.buzl.uk/user/" + selectedItem.value.title,
+            dialogTitle: "Share with friends",
         });
         return
     }
