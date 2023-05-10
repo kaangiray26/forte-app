@@ -36,9 +36,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="row g-3">
+            <div class="row gy-3">
                 <p v-if="!artists.length" class="px-3 text-decoration-underline theme-color">No artists in the library.</p>
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 col-xxl-2" v-for="artist in artists">
+                <div class="col-12 pt-3" v-for="artist in artists">
                     <Artist :artist="artist" />
                 </div>
             </div>

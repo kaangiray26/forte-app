@@ -2,11 +2,10 @@
     <div id="stationContextModal" class="modal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
-                <ul id="stationMenu" class="dropdown-menu shadow show position-fixed"
+                <ul id="stationMenu" class="dropdown-menu show position-fixed"
                     :style="{ 'bottom': posY + 'px', 'right': posX + 'px' }">
                     <li v-show="!props.loved">
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'addToLoved')"><span
+                        <button class="dropdown-item" type="button" @click="emit('context-menu-event', 'addToLoved')"><span
                                 class="bi bi-star me-1"></span>Like</button>
                     </li>
                     <li v-show="props.loved">
@@ -20,8 +19,7 @@
                                 class="bi bi-broadcast me-1"></span>Station page</button>
                     </li>
                     <li>
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'shareTrack')"><span
+                        <button class="dropdown-item" type="button" @click="emit('context-menu-event', 'shareTrack')"><span
                                 class="bi bi-share-fill me-1"></span>Share</button>
                     </li>
                 </ul>

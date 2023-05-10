@@ -1,7 +1,9 @@
 // events.js
 import { store } from '/js/store.js';
+import { Haptics } from '@capacitor/haptics';
 
 async function right_click(obj) {
+    await Haptics.selectionStart();
     window.dispatchEvent(new CustomEvent('right_click', {
         detail: obj
     }));

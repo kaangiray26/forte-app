@@ -16,16 +16,16 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center p-2">
-                    <div class="btn-group btn-group-sm me-2" role="group" aria-label="Basic example">
+                    <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-light bi bi-skip-start-fill" @click="play_previous"></button>
                         <button type="button" class="btn btn-light bi" :class="{
-                                    'bi-play-fill': !store.playing.is_playing, 'bi-pause-fill': store.playing.is_playing
-                                }" @click="play"></button>
+                            'bi-play-fill': !store.playing.is_playing, 'bi-pause-fill': store.playing.is_playing
+                        }" @click="play"></button>
                         <button type="button" class="btn btn-light bi bi-skip-end-fill" @click="play_next"></button>
                     </div>
                 </div>
             </div>
-            <div class="progress progress-minified flex-fill" @click="seekProgress($event)">
+            <div class="progress progress-minified flex-fill mx-2" @click="seekProgress($event)">
                 <div class="progress-bar theme-btn progress-bar-animated" aria-valuenow="0" aria-valuemin="0"
                     aria-valuemax="100" :style="{ 'width': store.playing.progress + '%' }">
                 </div>

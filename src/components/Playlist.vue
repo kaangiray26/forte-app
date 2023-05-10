@@ -6,13 +6,13 @@
             </div>
         </div>
     </div>
-    <div class="card rounded-0 border-0 mx-3" v-if="loaded">
+    <div class="card rounded-0 border-0 m-3" v-if="loaded">
         <div class="card-body px-3">
             <div class="row g-3">
-                <div class="col-12 col-sm-auto">
+                <div class="col-12">
                     <div class="d-inline-flex position-relative"
                         @contextmenu.prevent="right_click({ item: playlist, event: $event })">
-                        <img class="playlist-img shadow rounded" :src="get_cover(playlist.cover)" @error="placeholder" />
+                        <img class="playlist-img rounded" :src="get_cover(playlist.cover)" @error="placeholder" />
                         <div class="position-absolute bottom-0 right-0">
                             <button class="btn btn-light action-btn bi bi-play-fill m-2" type="button"
                                 @click="play_playlist(playlist.id)">
@@ -63,7 +63,7 @@
                                 <div class="d-flex h-100 align-items-center">
                                     <button class="btn btn-light action-btn bi bi-three-dots m-0 me-3" type="button"
                                         data-bs-toggle="dropdown">
-                                        <ul class="dropdown-menu shadow-lg context-menu">
+                                        <ul class="dropdown-menu context-menu">
                                             <li>
                                                 <button class="dropdown-item" type="button"
                                                     @click="delete_track_from_playlist(index)">

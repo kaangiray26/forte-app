@@ -51,7 +51,7 @@ async function _right_click(obj) {
     }
 
     if (selectedItem.value.type == 'track') {
-        trackContextModal.value.show(obj.event.x, obj.event.y);
+        trackContextModal.value.show();
         return;
     }
     if (selectedItem.value.type == 'album') {

@@ -36,9 +36,9 @@
                     </ul>
                 </div>
             </div>
-            <div class="row g-3">
+            <div class="row gy-3">
                 <p v-if="!albums.length" class="px-3 text-decoration-underline theme-color">No albums in the library.</p>
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 col-xxl-2" v-for="album in albums">
+                <div class="col-12 pt-3" v-for="album in albums">
                     <Album :album="album" />
                 </div>
             </div>

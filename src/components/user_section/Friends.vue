@@ -32,7 +32,7 @@
     </ul>
     <hr />
     <div class="row g-3">
-        <div v-show="!friends.length" class="col-12 col-sm-6 col-lg-4 col-xl-3 col-xxl-2">
+        <div v-show="!friends.length" class="col-12">
             <div class="card h-100 w-100 border-0">
                 <div class="p-3">
                     <div class="d-inline-flex position-relative">
@@ -44,11 +44,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 col-xxl-2" v-for="friend in friends">
+        <div class="col-12" v-for="friend in friends">
             <div class="card h-100 w-100 border-0" @contextmenu.prevent="right_click({ item: friend, event: $event })">
                 <div class="p-3">
                     <div class="d-inline-flex position-relative" @click="openProfile(friend.username)">
-                        <div class="d-inline-flex clickable-shadow rounded">
+                        <div class="d-inline-flex rounded">
                             <img class="playlist-img rounded" :src="get_cover(friend.cover)" @error="placeholder" />
                         </div>
                     </div>

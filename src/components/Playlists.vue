@@ -36,10 +36,10 @@
                     </ul>
                 </div>
             </div>
-            <div class="row g-3">
+            <div class="row gy-3">
                 <p v-if="!playlists.length" class="px-3 text-decoration-underline theme-color">No playlists in the library.
                 </p>
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 col-xxl-2" v-for="playlist in playlists">
+                <div class="col-12 pt-3" v-for="playlist in playlists">
                     <Playlist :playlist="playlist" />
                 </div>
             </div>

@@ -1,75 +1,52 @@
 <template>
-    <div id="trackContextModal" class="modal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <ul id="trackMenu" class="dropdown-menu shadow show position-fixed"
-                    :style="{ 'bottom': posY + 'px', 'right': posX + 'px' }">
-                    <li>
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'playTrack')"><span
-                                class="bi bi-play-fill me-1"></span>Play</button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'playTrackNext')"><span
-                                class="bi bi-fast-forward-fill me-1"></span>Play next</button>
-                    </li>
-                    <li v-show="!props.loved">
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'addToLoved')"><span
-                                class="bi bi-star me-1"></span>Like</button>
-                    </li>
-                    <li v-show="props.loved">
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'removeFromLoved')"><span
-                                class="bi bi-star-fill me-1"></span>Unlike</button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'addTrackToQueue')"><span
-                                class="bi bi-music-note-list me-1"></span>Add to queue</button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'addTrackToPlaylist')"><span
-                                class="bi bi-music-note-beamed me-1"></span>Add to playlist</button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'openAlbumPage')"><span
-                                class="bi bi-vinyl-fill me-1"></span>Album page</button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'openArtistPage')"><span
-                                class="bi bi-person-fill me-1"></span>Artist page</button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'shareTrack')"><span
-                                class="bi bi-share-fill me-1"></span>Share</button>
-                    </li>
-                    <li>
-                        <button class="dropdown-item" type="button"
-                            @click="emit('context-menu-event', 'downloadTrack')"><span
-                                class="bi bi-download me-1"></span>Download</button>
-                    </li>
-                </ul>
-            </div>
+    <div id="trackContextOffcanvas" class="offcanvas offcanvas-bottom" tabindex="-1">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">Track Options</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="p-0 overflow-y-auto">
+            <ul id="trackMenu" class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-action" @click="action('playTrack')">
+                    <span class="bi bi-play-fill me-1"></span>Play
+                </li>
+                <li class="list-group-item list-group-item-action" @click="action('playTrackNext')">
+                    <span class="bi bi-fast-forward-fill me-1"></span>Play next
+                </li>
+                <li v-show="!props.loved" class="list-group-item list-group-item-action" @click="action('addToLoved')">
+                    <span class="bi bi-star me-1"></span>Like
+                </li>
+                <li v-show="props.loved" class="list-group-item list-group-item-action" @click="action('removeFromLoved')">
+                    <span class="bi bi-star-fill me-1"></span>Unlike
+                </li>
+                <li class="list-group-item list-group-item-action" @click="action('addTrackToQueue')">
+                    <span class="bi bi-music-note-list me-1"></span>Add to queue
+                </li>
+                <li class="list-group-item list-group-item-action" @click="action('addTrackToPlaylist')">
+                    <span class="bi bi-music-note-beamed me-1"></span>Add to playlist
+                </li>
+                <li class="list-group-item list-group-item-action" @click="action('openAlbumPage')">
+                    <span class="bi bi-vinyl-fill me-1"></span>Album page
+                </li>
+                <li class="list-group-item list-group-item-action" @click="action('openArtistPage')">
+                    <span class="bi bi-person-fill me-1"></span>Artist page
+                </li>
+                <li class="list-group-item list-group-item-action" @click="action('shareTrack')">
+                    <span class="bi bi-share-fill me-1"></span>Share
+                </li>
+                <li class="list-group-item list-group-item-action" @click="action('downloadTrack')">
+                    <span class="bi bi-download me-1"></span>Download
+                </li>
+            </ul>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { Modal } from 'bootstrap';
+import { onMounted } from 'vue';
+import { Offcanvas } from 'bootstrap';
 
-let modal = null;
-let menu = null;
+let offcanvas = null;
 const emit = defineEmits(['context-menu-event']);
-
-const posX = ref(0);
-const posY = ref(0);
 
 const props = defineProps({
     loved: {
@@ -78,33 +55,17 @@ const props = defineProps({
     }
 })
 
-async function calc_pos(x, y) {
-    let mouse_x = x;
-    let mouse_y = y;
-
-    let context_x = menu.offsetWidth;
-    let context_y = menu.offsetHeight;
-
-    if (mouse_x + context_x >= window.innerWidth) {
-        posX.value = window.innerWidth - mouse_x;
-    } else {
-        posX.value = window.innerWidth - mouse_x - context_x;
-    }
-
-    if (mouse_y + context_y >= window.innerHeight) {
-        posY.value = window.innerHeight - mouse_y;
-    } else {
-        posY.value = window.innerHeight - mouse_y - context_y;
-    }
-}
-
-async function _show(x, y) {
-    await modal.show();
-    calc_pos(x, y);
+async function _show() {
+    offcanvas.show();
 }
 
 async function _hide() {
-    modal.hide();
+    offcanvas.hide();
+}
+
+async function action(event) {
+    offcanvas.hide();
+    emit('context-menu-event', event);
 }
 
 defineExpose({
@@ -113,10 +74,6 @@ defineExpose({
 })
 
 onMounted(() => {
-    modal = new Modal(document.querySelector('#trackContextModal'));
-    menu = document.querySelector('#trackMenu');
-    menu.addEventListener('click', () => {
-        modal.hide();
-    })
+    offcanvas = new Offcanvas(document.querySelector('#trackContextOffcanvas'));
 })
 </script>

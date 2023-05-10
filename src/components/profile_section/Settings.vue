@@ -29,77 +29,68 @@
         </li>
     </ul>
     <hr>
-    <div class="card border-0">
-        <div class="card-body">
-            <h3 class="theme-color">Last.fm</h3>
-            <div class="d-inline-flex flex-column">
-                <div v-if="lastfm_profile" class="d-inline-flex border rounded mb-2 p-2">
-                    <div class="d-flex">
-                        <img :src="lastfm_profile.image[3]['#text']" class="img-lastfm" width="50" height="50" />
-                    </div>
-                    <div class="d-flex flex-column mx-2">
-                        <span class="fw-bold">{{ lastfm_profile.name }}</span>
-                        <div class="d-flex flex-wrap align-items-center">
-                            <span class="text-muted fw-bold">Scrobbles:</span>
-                            <span class="badge bg-dark mx-2">{{ formatNumber(lastfm_profile.playcount) }}</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="input-group flex-nowrap mb-2">
-                    <span class="input-group-text foreground theme-color theme-border" id="basic-addon1">Scrobbling</span>
-                    <button v-show="!lastfm_config.scrobbling" type="button" class="btn btn-danger flex-fill rounded-end"
-                        @click="toggle_scrobbling">Off</button>
-                    <button v-show="lastfm_config.scrobbling" type="button" class="btn btn-success flex-fill rounded-end"
-                        @click="toggle_scrobbling">On</button>
-                </div>
-                <button v-if="lastfm_profile" class="btn btn-dark mb-2" @click="remove_account">Remove account</button>
+    <div class="d-inline-flex flex-column">
+        <h3 class="theme-color">Last.fm</h3>
+        <div v-if="lastfm_profile" class="d-inline-flex border rounded mb-2 p-2">
+            <div class="d-flex">
+                <img :src="lastfm_profile.image[3]['#text']" class="img-lastfm" width="50" height="50" />
             </div>
-            <div v-if="lastfm_profile" class="d-flex flex-column mt-4">
-                <h5>Top Tracks This Week</h5>
-                <ul class="list-group list-group-flush flex-fill">
-                    <li v-for="track in top_tracks" class="list-group-item list-group-item-action clickable"
-                        @click="openTrack(track)">
-                        <div class="d-flex">
-                            <img :src="track.image[3]['#text']" class="img-lastfm" width="50" height="50" />
-                            <div class="d-flex flex-fill justify-content-between">
-                                <div class="d-flex flex-column mx-2">
-                                    <span class="fw-bold">{{ track.artist.name }}</span>
-                                    <span>{{ track.name }}</span>
-                                </div>
-                                <div class="d-flex align-items-center">
-                                    <span class="badge bg-dark">{{ track.playcount }}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+            <div class="d-flex flex-column mx-2">
+                <span class="fw-bold">{{ lastfm_profile.name }}</span>
+                <div class="d-flex flex-wrap align-items-center">
+                    <span class="text-muted fw-bold">Scrobbles:</span>
+                    <span class="badge bg-dark mx-2">{{ formatNumber(lastfm_profile.playcount) }}</span>
+                </div>
             </div>
         </div>
+        <div class="input-group flex-nowrap mb-2">
+            <span class="input-group-text foreground theme-color theme-border" id="basic-addon1">Scrobbling</span>
+            <button v-show="!lastfm_config.scrobbling" type="button" class="btn btn-danger flex-fill rounded-end"
+                @click="toggle_scrobbling">Off</button>
+            <button v-show="lastfm_config.scrobbling" type="button" class="btn btn-success flex-fill rounded-end"
+                @click="toggle_scrobbling">On</button>
+        </div>
+        <button v-if="lastfm_profile" class="btn btn-dark mb-2" @click="remove_account">Remove account</button>
+    </div>
+    <div v-if="lastfm_profile" class="d-flex flex-column mt-4">
+        <h5>Top Tracks This Week</h5>
+        <ul class="list-group list-group-flush flex-fill">
+            <li v-for="track in top_tracks" class="list-group-item list-group-item-action clickable"
+                @click="openTrack(track)">
+                <div class="d-flex">
+                    <img :src="track.image[3]['#text']" class="img-lastfm" width="50" height="50" />
+                    <div class="d-flex flex-fill justify-content-between">
+                        <div class="d-flex flex-column mx-2">
+                            <span class="fw-bold">{{ track.artist.name }}</span>
+                            <span>{{ track.name }}</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <span class="badge bg-dark">{{ track.playcount }}</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
     <hr>
-    <div class="card border-0">
-        <div class="card-body">
-            <div class="d-inline-flex">
-                <div class="d-flex flex-column">
-                    <router-link to="/servers">
-                        <button class="btn theme-btn black-on-hover text-white fw-bold flex-nowrap text-start m-1">
-                            <span class="bi bi-globe me-2"></span>
-                            <span>Servers</span>
-                        </button>
-                    </router-link>
-                    <button class="btn theme-btn black-on-hover text-white fw-bold flex-nowrap text-start m-1"
-                        @click="change_theme">
-                        <span class="bi me-2"
-                            :class="{ 'bi-sun-fill': store.theme == 'light', 'bi-moon-fill': store.theme == 'dark' }"></span>
-                        <span>Theme</span>
-                    </button>
-                    <button class="btn theme-btn black-on-hover text-white fw-bold flex-nowrap text-start m-1"
-                        @click="reset_menu">
-                        <span class="bi bi-box-arrow-right me-2"></span>
-                        <span>Log out</span>
-                    </button>
-                </div>
-            </div>
+    <div class="d-inline-flex">
+        <div class="d-flex flex-column">
+            <router-link to="/servers">
+                <button class="btn theme-btn black-on-hover text-white fw-bold flex-nowrap text-start m-1">
+                    <span class="bi bi-globe me-2"></span>
+                    <span>Servers</span>
+                </button>
+            </router-link>
+            <button class="btn theme-btn black-on-hover text-white fw-bold flex-nowrap text-start m-1"
+                @click="change_theme">
+                <span class="bi me-2"
+                    :class="{ 'bi-sun-fill': store.theme == 'light', 'bi-moon-fill': store.theme == 'dark' }"></span>
+                <span>Theme</span>
+            </button>
+            <button class="btn theme-btn black-on-hover text-white fw-bold flex-nowrap text-start m-1" @click="reset_menu">
+                <span class="bi bi-box-arrow-right me-2"></span>
+                <span>Log out</span>
+            </button>
         </div>
     </div>
     <hr />

@@ -10,8 +10,8 @@
                         <h3 class="theme-color fw-bold">Create playlist</h3>
                     </div>
                     <div class="container">
-                        <div class="d-inline-flex position-relative">
-                            <img ref="playlist_cover" src="/images/cassette.svg" class="playlist-img shadow rounded">
+                        <div class="d-flex position-relative mb-3">
+                            <img ref="playlist_cover" src="/images/cassette.svg" class="playlist-img rounded">
                             <input ref="cover_upload" type="file" class="visually-hidden" @change="handle_cover" />
                             <div class="position-absolute bottom-0 right-0">
                                 <button class="btn btn-light action-btn bi bi-pencil-square m-2" type="button"
@@ -20,7 +20,7 @@
                             </div>
                         </div>
                         <div class="d-flex flex-column justify-content-between">
-                            <div class="form-floating mb-2">
+                            <div class="form-floating mb-3">
                                 <input ref="playlist_name" type="text" class="form-control search-card-input"
                                     id="floatingInput">
                                 <label for="floatingInput" class="theme-label theme-color">Playlist name</label>

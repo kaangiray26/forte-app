@@ -2,7 +2,7 @@
     <div class="card rounded-0 border-0 m-3" v-if="loaded">
         <div class="card-body rounded px-3">
             <div class="row g-3">
-                <div class="col-12 col-sm-auto">
+                <div class="col-12">
                     <div class="d-inline-flex position-relative">
                         <div class="ph rounded">
                             <img class="playlist-img rounded" :src="get_cover()" @error="placeholder" />

@@ -38,13 +38,14 @@
                     </div>
                 </div>
                 <p v-if="!tracks.length" class="px-3 text-decoration-underline">No content in the library.</p>
-                <ul class="list-group list-group-horizontal mobile-carousel">
-                    <li class="list-group-item theme-background border-0 p-0" v-for="track in tracks.slice(0, 12)">
+                <ul class="list-group list-group-horizontal mobile-carousel py-3">
+                    <li v-for="(track, index) in tracks.slice(0, 12)" class="list-group-item theme-background border-0 p-0"
+                        :class="{ 'pe-3': index < 11 }">
                         <CarouselTrack :track="track" />
                     </li>
                 </ul>
-                <div class="row g-2">
-                    <div class="col-12 col-sm-6 col-lg-4 col-xl-3 col-xxl-2" v-for="track in tracks.slice(12, 24)">
+                <div class="row gy-3">
+                    <div v-for="track in tracks.slice(12, 24)" class="col-12">
                         <Track :track="track" />
                     </div>
                 </div>

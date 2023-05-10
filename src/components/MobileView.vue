@@ -7,7 +7,7 @@
                     <div ref="cardView" class="card border-0 h-100">
                         <div>
                             <div class="m-3">
-                                <img class="card-img-top image-stable shadow rounded" :src="get_cover(store.playing.cover)"
+                                <img class="card-img-top image-stable rounded" :src="get_cover(store.playing.cover)"
                                     @error="placeholder">
                             </div>
                         </div>
@@ -44,8 +44,8 @@
                                         </div>
                                         <div class="d-flex align-items-center">
                                             <button type="button" class="btn btn-lg btn-light action-btn bi" :class="{
-                                                    'bi-play-fill': !store.playing.is_playing, 'bi-pause-fill': store.playing.is_playing
-                                                }" @click="play"></button>
+                                                'bi-play-fill': !store.playing.is_playing, 'bi-pause-fill': store.playing.is_playing
+                                            }" @click="play"></button>
                                         </div>
                                         <div class="d-flex align-items-center">
                                             <button type="button" class="btn btn-lg theme-color rounded bi bi-skip-end-fill"

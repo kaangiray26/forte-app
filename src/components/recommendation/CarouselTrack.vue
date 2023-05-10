@@ -1,6 +1,6 @@
 <template>
     <div class="card border-0" @contextmenu.prevent="right_click({ item: props.track, event: $event })">
-        <div class="p-3">
+        <div class="p-0">
             <div class="ph rounded" @click="openTrack">
                 <img class="carousel-img rounded" :src="get_cover(props.track.cover)" @error="placeholder" />
             </div>

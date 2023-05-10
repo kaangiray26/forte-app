@@ -272,6 +272,10 @@ img {
     background-color: #868E96;
 }
 
+.bg-transparent {
+    background-color: transparent !important;
+}
+
 /* 
 ------
 THEMES

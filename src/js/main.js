@@ -3,6 +3,7 @@ import App from '/components/App.vue'
 import router from '/router'
 import { Forte } from '/js/ft.js'
 import { action } from '/js/events.js'
+import { MediaSessionAPI } from '/js/plugins.js';
 
 // Import our custom CSS
 import '/scss/styles.scss'
@@ -12,49 +13,59 @@ window.ft = new Forte();
 window.ft.init().then(() => {
     // navigator.mediaSession.playbackState = "none";
 
-    // // Must be synchronized in groupSession:
-    // navigator.mediaSession.setActionHandler("play", () => {
-    //     action({
-    //         func: async function op() {
-    //             window.ft.play();
-    //         },
-    //         object: [null],
-    //         operation: "play"
-    //     });
-    // });
+    // Must be synchronized in groupSession:
+    MediaSessionAPI.addListener("play", () => {
+        action({
+            func: async function op() {
+                window.ft.play();
+            },
+            object: [null],
+            operation: "play"
+        });
+    });
 
     // // Must be synchronized in groupSession:
-    // navigator.mediaSession.setActionHandler("pause", () => {
-    //     action({
-    //         func: async function op() {
-    //             window.ft.play();
-    //         },
-    //         object: [null],
-    //         operation: "play"
-    //     });
-    // });
+    MediaSessionAPI.addListener("pause", () => {
+        action({
+            func: async function op() {
+                window.ft.play();
+            },
+            object: [null],
+            operation: "play"
+        });
+    });
 
     // // Must be synchronized in groupSession:
-    // navigator.mediaSession.setActionHandler("nexttrack", () => {
-    //     action({
-    //         func: async function op() {
-    //             window.ft.play_next();
-    //         },
-    //         object: [null],
-    //         operation: "playNext"
-    //     });
-    // });
+    MediaSessionAPI.addListener("nexttrack", () => {
+        action({
+            func: async function op() {
+                window.ft.play_next();
+            },
+            object: [null],
+            operation: "playNext"
+        });
+    });
 
     // // Must be synchronized in groupSession:
-    // navigator.mediaSession.setActionHandler("previoustrack", () => {
-    //     action({
-    //         func: async function op() {
-    //             window.ft.play_previous();
-    //         },
-    //         object: [null],
-    //         operation: "playPrevious"
-    //     });
-    // });
+    MediaSessionAPI.addListener("previoustrack", () => {
+        action({
+            func: async function op() {
+                window.ft.play_previous();
+            },
+            object: [null],
+            operation: "playPrevious"
+        });
+    });
+
+    // Test Metadata
+    MediaSessionAPI.setMetadata({
+        title: "Walking Down The Hill",
+        artist: "Travis",
+        album: "12 Memories",
+        cover: "http://localhost:3000/c56d8e9ed79b53f2cb2df54f69832413"
+    }).then(() => {
+        MediaSessionAPI.play();
+    })
 
     console.log("Forte initialized.");
     createApp(App).use(router).mount('#app');

@@ -9,9 +9,9 @@
     <div class="card rounded-0 border-0 m-3" v-if="loaded">
         <div class="card-body px-3">
             <div class="row g-3">
-                <div class="col-12 col-sm-auto">
+                <div class="col-12">
                     <div class="ph rounded" @contextmenu.prevent="right_click({ item: artist, event: $event })">
-                        <img class="playlist-img shadow rounded" :src="get_artist_cover(artist.cover)" />
+                        <img class="playlist-img rounded" :src="get_artist_cover(artist.cover)" />
                     </div>
                 </div>
                 <div class="col d-flex flex-column justify-content-between">
