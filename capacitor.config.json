@@ -1,5 +1,11 @@
 {
   "appId": "forte.buzl.uk",
   "appName": "Forte",
-  "webDir": "src/dist"
+  "webDir": "src/dist",
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_forte",
+      "iconColor": "#595AFF"
+    }
+  }
 }

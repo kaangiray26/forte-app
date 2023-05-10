@@ -30,11 +30,9 @@ repositories {
     }
 }
 
-def core_version = "1.6.0"
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation "androidx.core:core:$core_version"
-    implementation "androidx.media:media:$core_version"
+    implementation "androidx.media:media:1.4.3"
     implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
     implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
     implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"

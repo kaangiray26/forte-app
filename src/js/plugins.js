@@ -1,6 +1,6 @@
 // plugins.js
 import { registerPlugin } from '@capacitor/core';
 
-const MediaSessionAPI = registerPlugin('MediaSessionAPI');
+const MediaControl = registerPlugin('MediaControl');
 
-export { MediaSessionAPI };
+export { MediaControl };
