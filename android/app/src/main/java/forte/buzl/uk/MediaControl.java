@@ -113,21 +113,10 @@ public class MediaControl extends Plugin {
     }
 
     public void createNotification() {
-        // Get album art
-        String albumArt = mediaSession.getController().getMetadata().getString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI);
-        Bitmap bitmap = null;
-
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), Uri.parse(albumArt));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         // Create the notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
                 .setStyle(mediaStyle)
                 .setSmallIcon(R.drawable.ic_forte)
-                .setLargeIcon(bitmap)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true)
                 .setOngoing(true);
