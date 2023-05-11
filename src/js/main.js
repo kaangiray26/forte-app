@@ -14,8 +14,24 @@ import '/assets/styles.css'
 window.ft = new Forte();
 window.ft.init().then(async () => {
 
+    // setPlaybackState to NONE
+    await MediaControl.setPlaybackState({
+        state: "none"
+    });
+
     // play Action Listener
-    await MediaControl.addListener('mediaSessionEvent', (event) => {
+    await MediaControl.addListener('fortePlayAction', () => {
+        action({
+            func: async function op() {
+                window.ft.play();
+            },
+            object: [null],
+            operation: "play"
+        });
+    });
+
+    // pause Action Listener
+    await MediaControl.addListener('fortePauseAction', () => {
         action({
             func: async function op() {
                 window.ft.play();

@@ -446,6 +446,11 @@ class Forte {
             albumArt: cover
         })
 
+        // PlaybackState
+        MediaControl.setPlaybackState({
+            state: "playing"
+        });
+
         this.player.unload();
         this.player._src = [ft.server + '/api/stream/' + track.id + `?session=${this.session}`];
         this.player.load();

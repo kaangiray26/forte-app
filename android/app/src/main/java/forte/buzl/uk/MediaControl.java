@@ -69,9 +69,13 @@ public class MediaControl extends Plugin {
         mediaSession.setCallback(new MediaSessionCompat.Callback(){
             @Override
             public void onPlay() {
+                notifyListeners("fortePlayAction", null);
+            }
+
+            @Override
+            public void onPause() {
                 JSObject ret = new JSObject();
-                ret.put("action", "play");
-                notifyListeners("mediaSessionEvent", ret);
+                notifyListeners("fortePauseAction", null);
             }
         });
 
@@ -106,6 +110,7 @@ public class MediaControl extends Plugin {
         metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, albumArt);
         mediaSession.setMetadata(metadataBuilder.build());
 
+
         // Update the notification
         createNotification();
 
@@ -120,6 +125,8 @@ public class MediaControl extends Plugin {
         int playbackState = PlaybackStateCompat.STATE_NONE;
 
         switch (state) {
+            case "none":
+                break;
             case "playing":
                 playbackState = PlaybackStateCompat.STATE_PLAYING;
                 break;
@@ -137,10 +144,8 @@ public class MediaControl extends Plugin {
         stateBuilder.setState(playbackState, 0, 1.0f);
         mediaSession.setPlaybackState(stateBuilder.build());
 
-        System.out.println("State:" + playbackState);
-
         // Update the notification
-        // createNotification();
+        createNotification();
 
         call.resolve();
     }
