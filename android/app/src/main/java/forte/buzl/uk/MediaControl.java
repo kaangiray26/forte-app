@@ -40,10 +40,9 @@ public class MediaControl extends Plugin {
     private Context context;
     private MediaStyle mediaStyle;
     private MediaSessionCompat mediaSession;
-    private NotificationCompat notificationCompat;
 
     private static final int NOTIFICATION_ID = 1;
-    private static final String CHANNEL_ID = "MediaControl";
+    private static final String CHANNEL_ID = "Forte";
 
     @Override
     public void load() {
@@ -56,7 +55,7 @@ public class MediaControl extends Plugin {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Forte Media Controls";
             String description = "Forte Media Controls Notification Channel";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            int importance = NotificationManager.IMPORTANCE_LOW;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription(description);
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
@@ -66,8 +65,20 @@ public class MediaControl extends Plugin {
         // Create a MediaSessionCompat
         mediaSession = new MediaSessionCompat(context, "MediaControl");
 
+        // Set Callbacks
+        mediaSession.setCallback(new MediaSessionCompat.Callback(){
+            @Override
+            public void onPlay() {
+                JSObject ret = new JSObject();
+                ret.put("action", "play");
+                notifyListeners("mediaSessionEvent", ret);
+            }
+        });
+
         // MediaStyle object
-        mediaStyle = new MediaStyle().setMediaSession(mediaSession.getSessionToken());
+        mediaStyle = new MediaStyle()
+            .setMediaSession(mediaSession.getSessionToken())
+            .setShowActionsInCompactView(0,1,2,3);
 
         // PlaybackStateCompat object
         PlaybackStateCompat.Builder stateBuilder = new PlaybackStateCompat.Builder();
@@ -75,19 +86,8 @@ public class MediaControl extends Plugin {
         stateBuilder.setState(PlaybackStateCompat.STATE_NONE, 0, 1.0f);
         mediaSession.setPlaybackState(stateBuilder.build());
 
+        // Activate the MediaSession
         mediaSession.setActive(true);
-
-        // Create the notification
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setStyle(mediaStyle)
-                .setSmallIcon(R.drawable.ic_forte)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setAutoCancel(true)
-                .setOngoing(true);
-
-        // Show the notification
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(context);
-        notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
 
     @PluginMethod
@@ -108,6 +108,39 @@ public class MediaControl extends Plugin {
 
         // Update the notification
         createNotification();
+
+        call.resolve();
+    }
+
+    @PluginMethod
+    public void setPlaybackState(PluginCall call){
+        JSObject data = call.getData();
+        String state = data.getString("state");
+
+        int playbackState = PlaybackStateCompat.STATE_NONE;
+
+        switch (state) {
+            case "playing":
+                playbackState = PlaybackStateCompat.STATE_PLAYING;
+                break;
+            case "paused":
+                playbackState = PlaybackStateCompat.STATE_PAUSED;
+                break;
+            case "stopped":
+                playbackState = PlaybackStateCompat.STATE_STOPPED;
+                break;
+        }
+
+        // PlaybackStateCompat object
+        PlaybackStateCompat.Builder stateBuilder = new PlaybackStateCompat.Builder();
+        stateBuilder.setActions(PlaybackStateCompat.ACTION_PLAY | PlaybackStateCompat.ACTION_PAUSE | PlaybackStateCompat.ACTION_STOP);
+        stateBuilder.setState(playbackState, 0, 1.0f);
+        mediaSession.setPlaybackState(stateBuilder.build());
+
+        System.out.println("State:" + playbackState);
+
+        // Update the notification
+        // createNotification();
 
         call.resolve();
     }

@@ -2,7 +2,8 @@
 // Forte Javascript Library
 
 import { Howl } from 'howler';
-import { store } from './store'
+import { store } from './store';
+import { MediaControl } from '/js/plugins.js';
 
 class Forte {
     constructor() {
@@ -409,13 +410,12 @@ class Forte {
         store.playing.cover = station.image;
         store.playing.loaded = true;
 
+
         // mediaSession metadata
-        // navigator.mediaSession.metadata = new MediaMetadata({
-        //     title: station.text,
-        //     artwork: [
-        //         { src: store.playing.cover, sizes: '250x250', type: 'image/jpeg' },
-        //     ]
-        // });
+        MediaControl.setMetadata({
+            title: station.text,
+            albumArt: store.playing.cover
+        })
 
         // Get station url
         let response = await this.API(`/station/${station.guide_id}/url`);
@@ -438,15 +438,13 @@ class Forte {
         store.playing.loaded = true;
 
         // Cover
-        // let cover = this.get_cover(store.playing.cover);
+        let cover = this.get_cover(store.playing.cover);
 
         // mediaSession metadata
-        // navigator.mediaSession.metadata = new MediaMetadata({
-        //     title: store.playing.title,
-        //     artwork: [
-        //         { src: cover, sizes: '250x250', type: 'image/png' },
-        //     ]
-        // });
+        MediaControl.setMetadata({
+            title: store.playing.title,
+            albumArt: cover
+        })
 
         this.player.unload();
         this.player._src = [ft.server + '/api/stream/' + track.id + `?session=${this.session}`];
@@ -465,15 +463,13 @@ class Forte {
         store.playing.loaded = true;
 
         // Cover
-        // let cover = this.get_cover(store.playing.cover);
+        let cover = this.get_cover(store.playing.cover);
 
         // mediaSession metadata
-        // navigator.mediaSession.metadata = new MediaMetadata({
-        //     title: store.playing.title,
-        //     artwork: [
-        //         { src: cover, sizes: '250x250', type: 'image/png' },
-        //     ]
-        // });
+        MediaControl.setMetadata({
+            title: store.playing.title,
+            albumArt: cover
+        })
 
         // Get server address
         let address = await fetch(`https://raw.githubusercontent.com/kaangiray26/forte/servers/hostnames/${track.server}`)
@@ -552,7 +548,11 @@ class Forte {
             store.queue_index = 0;
             this.player._sounds[0]._node.pause();
             store.playing.is_playing = false;
-            navigator.mediaSession.playbackState = "paused";
+
+            // Change mediaSession playbackState
+            MediaControl.setPlaybackState({
+                state: "paused"
+            })
 
             if (store.queue.length) {
                 store.queue[0].server ? this.load_federated_track(store.queue[0]) : this.load_track(store.queue[0]);
@@ -593,7 +593,11 @@ class Forte {
                 store.queue_index = 0;
                 this.player._sounds[0]._node.pause();
                 store.playing.is_playing = false;
-                navigator.mediaSession.playbackState = "paused";
+
+                // Change mediaSession playbackState
+                MediaControl.setPlaybackState({
+                    state: "paused"
+                })
                 return
             }
             this.API('/random/track').then((response) => {
@@ -633,15 +637,23 @@ class Forte {
             this.player._sounds[0]._node.pause();
             //
             store.playing.is_playing = false;
-            navigator.mediaSession.playbackState = "paused";
+
+            // Change mediaSession playbackState
+            MediaControl.setPlaybackState({
+                state: "paused"
+            })
             return;
         }
 
         // howler is inconsistent, using this instead
         this.player._sounds[0]._node.play();
-        //
+
         store.playing.is_playing = true;
-        navigator.mediaSession.playbackState = "playing";
+
+        // Change mediaSession playbackState
+        MediaControl.setPlaybackState({
+            state: "playing"
+        })
     }
 
     async play_previous() {
