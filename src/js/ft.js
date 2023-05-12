@@ -443,6 +443,7 @@ class Forte {
         // mediaSession metadata
         MediaControl.setMetadata({
             title: store.playing.title,
+            duration: parseInt(store.playing.duration),
             albumArt: cover
         })
 

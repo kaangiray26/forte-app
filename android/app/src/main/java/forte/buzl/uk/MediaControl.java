@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -30,9 +31,11 @@ import android.support.v4.media.session.PlaybackStateCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 import androidx.media.app.NotificationCompat.MediaStyle;
 
 import java.io.IOException;
+import java.net.URL;
 
 @CapacitorPlugin(name = "MediaControl")
 public class MediaControl extends Plugin {
@@ -98,18 +101,32 @@ public class MediaControl extends Plugin {
     public void setMetadata(PluginCall call){
         JSObject data = call.getData();
         String title = data.getString("title");
-        String artist = data.getString("artist");
         String album = data.getString("album");
+        String artist = data.getString("artist");
+        String duration = data.getString("duration");
         String albumArt = data.getString("albumArt");
+
+        // Get image
+        Bitmap bitmap = null;
+        if (albumArt != null) {
+            System.out.println("Getting album cover...");
+            try {
+                URL url = new URL(albumArt);
+                bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
         // MediaMetadataCompat object
         MediaMetadataCompat.Builder metadataBuilder = new MediaMetadataCompat.Builder();
         metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_TITLE, title);
         metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ARTIST, artist);
         metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ALBUM, album);
+        metadataBuilder.putLong(MediaMetadataCompat.METADATA_KEY_DURATION, Long.parseLong(duration));
         metadataBuilder.putString(MediaMetadataCompat.METADATA_KEY_ALBUM_ART_URI, albumArt);
+        metadataBuilder.putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, bitmap);
         mediaSession.setMetadata(metadataBuilder.build());
-
 
         // Update the notification
         createNotification();

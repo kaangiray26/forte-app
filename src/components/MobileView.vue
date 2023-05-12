@@ -169,7 +169,13 @@ const props = defineProps({
 
 onMounted(() => {
     let hammertime = new Hammer(cardView.value);
-    hammertime.get('swipe').set({ direction: Hammer.DIRECTION_VERTICAL });
+    hammertime.get('swipe').set({ direction: Hammer.DIRECTION_ALL });
+    hammertime.on("swipeleft", () => {
+        props.play_next();
+    });
+    hammertime.on("swiperight", () => {
+        props.play_previous();
+    });
     hammertime.on("swipedown", function () {
         _hide();
     });
