@@ -13,13 +13,12 @@ import '/assets/styles.css'
 
 window.ft = new Forte();
 window.ft.init().then(async () => {
-
     // setPlaybackState to NONE
     await MediaControl.setPlaybackState({
         state: "none"
     });
 
-    // play Action Listener
+    // // play Action Listener
     await MediaControl.addListener('fortePlayAction', () => {
         action({
             func: async function op() {
@@ -30,7 +29,7 @@ window.ft.init().then(async () => {
         });
     });
 
-    // pause Action Listener
+    // // pause Action Listener
     await MediaControl.addListener('fortePauseAction', () => {
         action({
             func: async function op() {
@@ -41,27 +40,27 @@ window.ft.init().then(async () => {
         });
     });
 
-    // // Must be synchronized in groupSession:
-    // MediaSessionAPI.addListener("nexttrack", () => {
-    //     action({
-    //         func: async function op() {
-    //             window.ft.play_next();
-    //         },
-    //         object: [null],
-    //         operation: "playNext"
-    //     });
-    // });
+    // // next Action Listener
+    await MediaControl.addListener('forteNextAction', () => {
+        action({
+            func: async function op() {
+                window.ft.play_next();
+            },
+            object: [null],
+            operation: "playNext"
+        });
+    });
 
-    // // Must be synchronized in groupSession:
-    // MediaSessionAPI.addListener("previoustrack", () => {
-    //     action({
-    //         func: async function op() {
-    //             window.ft.play_previous();
-    //         },
-    //         object: [null],
-    //         operation: "playPrevious"
-    //     });
-    // });
+    // // previous Action Listener
+    await MediaControl.addListener('fortePreviousAction', () => {
+        action({
+            func: async function op() {
+                window.ft.play_previous();
+            },
+            object: [null],
+            operation: "playPrevious"
+        });
+    });
 
     console.log("Forte initialized.");
     createApp(App).use(router).mount('#app');

@@ -80,6 +80,27 @@ public class MediaControl extends Plugin {
                 JSObject ret = new JSObject();
                 notifyListeners("fortePauseAction", null);
             }
+
+            @Override
+            public void onSkipToNext(){
+                JSObject ret = new JSObject();
+                notifyListeners("forteNextAction", null);
+            }
+
+            @Override
+            public void onSkipToPrevious(){
+                JSObject ret = new JSObject();
+                notifyListeners("fortePreviousAction", null);
+            }
+
+            // Seek to a specific position
+            @Override
+            public void onSeekTo(long pos) {
+                JSObject ret = new JSObject();
+                ret.put("position", pos);
+                notifyListeners("forteSeekAction", ret);
+            }
+            
         });
 
         // MediaStyle object
@@ -157,8 +178,25 @@ public class MediaControl extends Plugin {
 
         // PlaybackStateCompat object
         PlaybackStateCompat.Builder stateBuilder = new PlaybackStateCompat.Builder();
-        stateBuilder.setActions(PlaybackStateCompat.ACTION_PLAY | PlaybackStateCompat.ACTION_PAUSE | PlaybackStateCompat.ACTION_STOP);
+        stateBuilder.setActions(PlaybackStateCompat.ACTION_PLAY | PlaybackStateCompat.ACTION_PAUSE | PlaybackStateCompat.ACTION_STOP | PlaybackStateCompat.ACTION_SKIP_TO_NEXT | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS);
         stateBuilder.setState(playbackState, 0, 1.0f);
+        mediaSession.setPlaybackState(stateBuilder.build());
+
+        // Update the notification
+        createNotification();
+
+        call.resolve();
+    }
+
+    @PluginMethod
+    public void setProgress(PluginCall call){
+        JSObject data = call.getData();
+        String progress = data.getString("progress");
+
+        // PlaybackStateCompat object
+        PlaybackStateCompat.Builder stateBuilder = new PlaybackStateCompat.Builder();
+        stateBuilder.setActions(PlaybackStateCompat.ACTION_PLAY | PlaybackStateCompat.ACTION_PAUSE | PlaybackStateCompat.ACTION_STOP | PlaybackStateCompat.ACTION_SKIP_TO_NEXT | PlaybackStateCompat.ACTION_SKIP_TO_PREVIOUS | PlaybackStateCompat.ACTION_SEEK_TO);
+        stateBuilder.setState(PlaybackStateCompat.STATE_PLAYING, Long.parseLong(progress), 1.0f);
         mediaSession.setPlaybackState(stateBuilder.build());
 
         // Update the notification
