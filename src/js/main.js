@@ -10,6 +10,7 @@ import { MediaControl } from '/js/plugins.js'
 // Import our custom CSS
 import '/scss/styles.scss'
 import '/assets/styles.css'
+import '/assets/bootstrap-icons.css'
 
 window.ft = new Forte();
 window.ft.init().then(async () => {

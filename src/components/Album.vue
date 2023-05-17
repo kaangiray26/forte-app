@@ -6,11 +6,11 @@
             </div>
         </div>
     </div>
-    <div class="card rounded-0 border-0 m-3" v-if="loaded">
+    <div class="card rounded-0 border-0 m-3" v-show="loaded">
         <div class="card-body px-3">
             <div class="row g-3">
                 <div class="col-12">
-                    <div class="ph rounded d-inline-flex position-relative"
+                    <div class="ph rounded d-flex position-relative"
                         @contextmenu.prevent="right_click({ item: album, event: $event })">
                         <img class="playlist-img rounded" :src="get_cover(album.cover)" @error="placeholder" />
                         <div class="position-absolute bottom-0 right-0">
@@ -75,7 +75,7 @@
             </div>
         </div>
     </div>
-    <div class="card rounded-0 border-0 mx-3 mt-3">
+    <div class="card rounded-0 border-0 mx-3 mt-3" v-show="loaded">
         <div class="card-body px-3">
             <h5 class="theme-color fw-bold">Comments</h5>
             <div class="row g-3">
