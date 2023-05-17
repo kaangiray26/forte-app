@@ -1,4 +1,12 @@
 <template>
+    <div v-show="!loaded">
+        <div class="d-flex justify-content-center m-3">
+            <button class="btn btn-dark" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
+        </div>
+    </div>
     <div class="card rounded-0 border-0 m-3" v-show="loaded">
         <div class="card-body rounded px-3">
             <div class="row g-3">

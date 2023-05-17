@@ -1,5 +1,13 @@
 <template>
-    <div v-if="loaded" class="card rounded-0 border-0 mx-3">
+    <div v-show="!loaded">
+        <div class="d-flex justify-content-center m-3">
+            <button class="btn btn-dark" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
+        </div>
+    </div>
+    <div v-show="loaded" class="card rounded-0 border-0 mx-3">
         <div class="card-body px-3">
             <div class="d-flex justify-content-between align-items-center">
                 <h3 class="theme-color fw-bold mb-0">Playlists</h3>
