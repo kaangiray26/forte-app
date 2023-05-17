@@ -13,7 +13,7 @@
                 <div class="modal-body d-flex flex-column">
                     <span class="mb-2">You can wait for a while but you can also reload or reset the connection.</span>
                     <button class="btn btn-dark mb-2" @click="reload">Reload</button>
-                    <button class="btn btn-danger" @click="reset">Reset</button>
+                    <button class="btn btn-danger" @click="reset">Log out</button>
                 </div>
             </div>
         </div>
@@ -23,7 +23,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { Modal } from "bootstrap"
-import { store } from "/js/store.js";
 
 let modal = null;
 const modalEl = ref(null);
@@ -38,8 +37,11 @@ async function reload() {
 }
 
 async function reset() {
-    console.log("Resetting...");
-    localStorage.clear();
+    // Clear localStorage
+    ["init", "offline", "session", "server", "username", "token", "volume", "groupSession", "groupSessionID"].map(key => {
+        localStorage.removeItem(key);
+    });
+
     sessionStorage.clear();
     window.location.replace("/");
 }
