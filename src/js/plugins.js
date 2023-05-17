@@ -3,7 +3,7 @@ import { registerPlugin } from '@capacitor/core';
 
 export let MediaControl;
 
-if (window.navigator) {
+if (window.navigator.mediaSession) {
     MediaControl = {
         setPlaybackState: async function (obj) {
             navigator.mediaSession.playbackState = obj.state;
