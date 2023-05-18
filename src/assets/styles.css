@@ -299,6 +299,7 @@ body.dark-theme {
     --shadow-color: rgb(255, 255, 255, 0.4);
     --input-border-color: #495057;
     --btn-close: invert(1) grayscale(100%) brightness(200%);
+    --border-color: rgba(248, 249, 250, 1);
 }
 
 /* Light Theme */
@@ -310,6 +311,7 @@ body.light-theme {
     --shadow-color: rgba(0, 0, 0, 0.4);
     --input-border-color: #dee2e6;
     --btn-close: none;
+    --border-color: rgba(33, 37, 41, 1);
 }
 
 .form-control:focus {
@@ -471,6 +473,10 @@ hr {
     border-radius: var(--bs-border-radius) !important;
 }
 
+.foreground-no-border {
+    background-color: var(--foreground-color) !important;
+}
+
 .foreground-content {
     background-clip: content-box !important;
     background-color: var(--foreground-color) !important;
@@ -491,4 +497,8 @@ hr {
 
 .theme-label::after {
     background-color: transparent !important;
+}
+
+.theme-border {
+    border-color: var(--border-color) !important;
 }

@@ -36,21 +36,21 @@
                 <img :src="lastfm_profile.image[3]['#text']" class="img-lastfm" width="50" height="50" />
             </div>
             <div class="d-flex flex-column mx-2">
-                <span class="fw-bold">{{ lastfm_profile.name }}</span>
+                <span class="theme-color fw-bold">{{ lastfm_profile.name }}</span>
                 <div class="d-flex flex-wrap align-items-center">
                     <span class="text-muted fw-bold">Scrobbles:</span>
-                    <span class="badge bg-dark mx-2">{{ formatNumber(lastfm_profile.playcount) }}</span>
+                    <span class="badge theme-btn mx-2">{{ formatNumber(lastfm_profile.playcount) }}</span>
                 </div>
             </div>
         </div>
         <div class="input-group flex-nowrap mb-2">
-            <span class="input-group-text foreground theme-color theme-border" id="basic-addon1">Scrobbling</span>
+            <span class="input-group-text foreground-no-border theme-color theme-border" id="basic-addon1">Scrobbling</span>
             <button v-show="!lastfm_config.scrobbling" type="button" class="btn btn-danger flex-fill rounded-end"
                 @click="toggle_scrobbling">Off</button>
             <button v-show="lastfm_config.scrobbling" type="button" class="btn btn-success flex-fill rounded-end"
                 @click="toggle_scrobbling">On</button>
         </div>
-        <div v-if="lastfm_auth" class="border border-dark rounded p-2">
+        <div v-if="lastfm_auth" class="border theme-border rounded p-2">
             <div class="input-group">
                 <span class="input-group-text bi bi-person-circle" id="basic-addon2"></span>
                 <input ref="username" type="text" class="form-control" placeholder="Username" aria-label="Username"
@@ -62,14 +62,15 @@
                     aria-describedby="basic-addon3">
             </div>
             <div class="d-flex flex-column">
-                <button class="btn btn-dark" @click="get_mobile_session">Login</button>
+                <button class="btn theme-btn text-white fw-bold" @click="get_mobile_session">Login</button>
             </div>
         </div>
-        <button v-if="lastfm_profile" class="btn btn-dark mb-2" @click="remove_account">Remove account</button>
+        <button v-if="lastfm_profile" class="btn theme-btn text-white fw-bold mb-2" @click="remove_account">Remove
+            account</button>
     </div>
     <div v-if="lastfm_profile" class="d-flex flex-column mt-4">
-        <h5>Top Tracks This Week</h5>
-        <ul class="list-group list-group-flush flex-fill">
+        <h5 class="theme-color">Top Tracks This Week</h5>
+        <ul class="list-group list-group-flush flex-fill rounded">
             <li v-for="track in top_tracks" class="list-group-item list-group-item-action clickable"
                 @click="openTrack(track)">
                 <div class="d-flex">
