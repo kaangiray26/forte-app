@@ -22,5 +22,5 @@ const visible = computed(() => {
 
 App.addListener('backButton', () => {
     if (visible.value) navigation();
-})
+});
 </script>

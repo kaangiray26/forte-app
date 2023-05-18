@@ -19,12 +19,16 @@
 import { ref, onBeforeMount } from 'vue';
 import { action } from '/js/events.js';
 import { store } from '/js/store.js';
+import { useRouter } from 'vue-router';
+import { App } from '@capacitor/app';
 import NavigationBar from './NavigationBar.vue';
 import ContentView from './ContentView.vue';
 import Player from './Player.vue';
 import Toasts from './Toasts.vue';
 import Messages from './Messages.vue';
 import Animation from './Animation.vue';
+
+const router = useRouter();
 
 const thisContentView = ref(null);
 const thisPlayer = ref(null);
@@ -89,5 +93,16 @@ onBeforeMount(() => {
 
     window.focus();
     window.addEventListener('keydown', keyPress);
+
+    App.addListener('appUrlOpen', (data) => {
+        console.log("APP URL OPEN", data);
+        // Example url: https://forte.buzl.uk/albums/1234
+        // slug = /albums/1234
+        const slug = data.url.split("https://forte.buzl.uk").pop();
+        if (slug) {
+            console.log("ROUTING TO", slug);
+            router.push(slug);
+        }
+    });
 })
 </script>

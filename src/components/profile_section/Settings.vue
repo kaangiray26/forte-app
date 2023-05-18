@@ -50,6 +50,21 @@
             <button v-show="lastfm_config.scrobbling" type="button" class="btn btn-success flex-fill rounded-end"
                 @click="toggle_scrobbling">On</button>
         </div>
+        <div v-if="lastfm_auth" class="border border-dark rounded p-2">
+            <div class="input-group">
+                <span class="input-group-text bi bi-person-circle" id="basic-addon2"></span>
+                <input ref="username" type="text" class="form-control" placeholder="Username" aria-label="Username"
+                    aria-describedby="basic-addon2">
+            </div>
+            <div class="input-group mb-2">
+                <span class="input-group-text bi bi-key-fill" id="basic-addon3"></span>
+                <input ref="password" type="password" class="form-control" placeholder="Password" aria-label="Password"
+                    aria-describedby="basic-addon3">
+            </div>
+            <div class="d-flex flex-column">
+                <button class="btn btn-dark" @click="get_mobile_session">Login</button>
+            </div>
+        </div>
         <button v-if="lastfm_profile" class="btn btn-dark mb-2" @click="remove_account">Remove account</button>
     </div>
     <div v-if="lastfm_profile" class="d-flex flex-column mt-4">
@@ -109,11 +124,45 @@ import Reset from '/components/Reset.vue';
 
 const resetModal = ref(null);
 
+const lastfm_auth = ref(false);
+const username = ref(null);
+const password = ref(null);
+
 const lastfm_config = ref({});
 const lastfm_api_key = ref(null);
 const lastfm_profile = ref(null);
 
 const top_tracks = ref([]);
+
+async function get_mobile_session() {
+    if (!username.value.value.length) {
+        username.value.focus();
+        return
+    }
+
+    if (!password.value.value.length) {
+        password.value.focus();
+        return
+    }
+
+    let response = await ft.lastfm_mobile_auth(username.value.value, password.value.value);
+    if (!response || response.error) {
+        return
+    }
+
+    localStorage.setItem('lastfm_username', JSON.stringify(response.username));
+    localStorage.setItem('lastfm_key', JSON.stringify(response.key));
+    localStorage.setItem('scrobbling', JSON.stringify(true));
+    store.scrobbling = true;
+    lastfm_auth.value = false;
+
+    lastfm_config.value['scrobbling'] = true;
+    lastfm_config.value['lastfm_key'] = response.key;
+
+    // load lastfm profile
+    get_lastfm_profile();
+    get_top_tracks();
+}
 
 async function change_theme() {
     store.theme = store.theme == 'dark' ? 'light' : 'dark';
@@ -132,7 +181,7 @@ async function openTrack(track) {
 
 async function toggle_scrobbling() {
     if (!lastfm_config.value.lastfm_key) {
-        window.location.href = `https://www.last.fm/api/auth/?api_key=${lastfm_api_key.value}`
+        lastfm_auth.value = true;
         return
     }
 
@@ -201,6 +250,6 @@ async function setup() {
 }
 
 onBeforeMount(() => {
-    setup()
+    setup();
 })
 </script>

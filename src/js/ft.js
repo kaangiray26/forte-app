@@ -1243,6 +1243,23 @@ class Forte {
         return response;
     }
 
+    async lastfm_mobile_auth(username, password) {
+        let response = await fetch(this.server + '/api/lastfm/mobile_auth' + `?session=${this.session}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                "username": username,
+                "password": password
+            }),
+            credentials: "include"
+        }).then((response) => {
+            return response.json();
+        });
+        return response;
+    }
+
     async get_address(hostname) {
         return await fetch(`https://raw.githubusercontent.com/kaangiray26/forte/servers/hostnames/${hostname}`)
             .then(response => response.json())
