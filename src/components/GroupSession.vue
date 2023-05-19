@@ -16,16 +16,15 @@
                                 :value="peer_id" readonly>
                             <label for="floatingInputValue" class="theme-label theme-color">My PeerID</label>
                         </form>
-                        <button class="btn theme-btn black-on-hover text-white fw-bold" @click="copyPeerID">Copy</button>
+                        <button class="btn theme-btn  text-white fw-bold" @click="copyPeerID">Copy</button>
                     </div>
                     <div class="input-group mb-2" v-show="store.peer_status.startsWith('disconnected')">
                         <input ref="recipient_id" type="text" class="form-control search-card-input" placeholder="PeerID"
                             aria-label="Username" aria-describedby="basic-addon1">
-                        <button v-show="store.peer_status == 'disconnected'"
-                            class="btn theme-btn black-on-hover text-white fw-bold"
+                        <button v-show="store.peer_status == 'disconnected'" class="btn theme-btn  text-white fw-bold"
                             @click="createConnection">Connect</button>
                         <button v-show="store.peer_status == 'disconnected.connecting'"
-                            class="btn theme-btn black-on-hover text-white fw-bold" @click="stopConnection">Stop</button>
+                            class="btn theme-btn  text-white fw-bold" @click="stopConnection">Stop</button>
                     </div>
                     <PeerJS ref="thisPeerJS" v-if="peerInit" :key="peer_key" :peer="peer" :conn="conn" :peer_id="peer_id"
                         @show="_show" @disconnected="disconnect" @reaction="showReaction" @message="showMessage">

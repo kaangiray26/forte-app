@@ -17,7 +17,7 @@
                                     </div>
                                     <div>
                                         <button type="button"
-                                            class="btn btn-dark theme-btn fw-bold black-on-hover d-flex align-items-center text-nowrap text-start"
+                                            class="btn btn-dark theme-btn fw-bold  d-flex align-items-center text-nowrap text-start"
                                             @click="get_servers">
                                             <span class="bi bi-arrow-clockwise me-1"></span>
                                             <span>Refresh</span>
@@ -32,7 +32,7 @@
                                                 <h5 class="fw-bold m-0">{{ server.name }}</h5>
                                                 <div class="d-flex">
                                                     <button type="button"
-                                                        class="btn btn-dark theme-btn fw-bold black-on-hover text-nowrap"
+                                                        class="btn btn-dark theme-btn fw-bold  text-nowrap"
                                                         @click="open_server(server)">About</button>
                                                 </div>
                                             </div>

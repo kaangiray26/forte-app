@@ -26,8 +26,7 @@
                                 <label for="floatingInput" class="theme-label theme-color">Playlist name</label>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <button class="btn theme-btn black-on-hover text-white fw-bold"
-                                    @click="create_playlist">Create</button>
+                                <button class="btn theme-btn  text-white fw-bold" @click="create_playlist">Create</button>
                             </div>
                         </div>
                     </div>

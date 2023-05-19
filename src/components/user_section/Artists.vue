@@ -1,33 +1,29 @@
 <template>
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <router-link :to="'/user/' + username"
-                class="nav-link fw-bold purple-on-hover theme-color">Profile</router-link>
+            <router-link :to="'/user/' + username" class="nav-link fw-bold  theme-color">Profile</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/history'"
-                class="nav-link fw-bold purple-on-hover theme-color">Listening
+            <router-link :to="'/user/' + username + '/history'" class="nav-link fw-bold  theme-color">Listening
                 History</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/tracks'" class="nav-link fw-bold purple-on-hover theme-color">Favorite
+            <router-link :to="'/user/' + username + '/tracks'" class="nav-link fw-bold  theme-color">Favorite
                 Tracks</router-link>
         </li>
         <li class="nav-item">
             <router-link :to="'/user/' + username + '/playlists'"
-                class="nav-link fw-bold purple-on-hover theme-color">Playlists</router-link>
+                class="nav-link fw-bold  theme-color">Playlists</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/albums'"
-                class="nav-link fw-bold purple-on-hover theme-color">Albums</router-link>
+            <router-link :to="'/user/' + username + '/albums'" class="nav-link fw-bold  theme-color">Albums</router-link>
         </li>
         <li class="nav-item">
             <router-link :to="'/user/' + username + '/artists'"
-                class="nav-link fw-bold theme-btn black-on-hover text-white">Artists</router-link>
+                class="nav-link fw-bold theme-btn  text-white">Artists</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/friends'"
-                class="nav-link fw-bold purple-on-hover theme-color">Friends</router-link>
+            <router-link :to="'/user/' + username + '/friends'" class="nav-link fw-bold  theme-color">Friends</router-link>
         </li>
     </ul>
     <hr />
@@ -63,8 +59,8 @@
         </li>
     </ul>
     <div class="d-flex justify-content-end mt-2">
-        <button v-show="searchFinished" type="button" class="btn theme-btn black-on-hover text-white fw-bold"
-            @click="setup">Load more</button>
+        <button v-show="searchFinished" type="button" class="btn theme-btn  text-white fw-bold" @click="setup">Load
+            more</button>
         <button v-show="!searchFinished" class="btn btn-dark" type="button" disabled>
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             Loading...

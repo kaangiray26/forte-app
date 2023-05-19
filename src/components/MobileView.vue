@@ -15,7 +15,7 @@
                             <div class="d-flex flex-fill flex-column">
                                 <div class="overflow-hidden text-start mb-4">
                                     <div class="text-wrap clickable" @click="openAlbum">
-                                        <h5 class="fw-bold purple-on-hover theme-color rounded mb-0">{{
+                                        <h5 class="fw-bold  theme-color rounded mb-0">{{
                                             store.playing.title }}
                                         </h5>
                                     </div>
@@ -39,7 +39,8 @@
                                 <div class="btn-group btn-group justify-content-center" role="group">
                                     <div class="d-flex">
                                         <div class="d-flex align-items-center">
-                                            <button type="button" class="btn btn-lg theme-color bi bi-skip-start-fill"
+                                            <button type="button"
+                                                class="btn player-btn btn-lg theme-color bi bi-skip-start-fill"
                                                 @click="play_previous"></button>
                                         </div>
                                         <div class="d-flex align-items-center">
@@ -48,7 +49,8 @@
                                             }" @click="play"></button>
                                         </div>
                                         <div class="d-flex align-items-center">
-                                            <button type="button" class="btn btn-lg theme-color rounded bi bi-skip-end-fill"
+                                            <button type="button"
+                                                class="btn player-btn btn-lg theme-color rounded bi bi-skip-end-fill"
                                                 @click="play_next"></button>
                                         </div>
                                     </div>
@@ -56,15 +58,17 @@
                                 <hr />
                                 <!-- Second set of buttons -->
                                 <div class="d-flex justify-content-between">
-                                    <button type="button" class="btn theme-color bi bi-shuffle mx-1"
+                                    <button type="button" class="btn player-btn theme-color bi bi-shuffle mx-1"
                                         @click="emit('shuffle')" />
-                                    <button type="button" class="btn theme-color bi bi-soundwave mx-1"
+                                    <button type="button" class="btn player-btn theme-color bi bi-soundwave mx-1"
                                         @click="emit('group_session')" />
-                                    <button type="button" class="btn theme-color bi bi-chat-square-text-fill mx-1"
+                                    <button type="button"
+                                        class="btn player-btn theme-color bi bi-chat-square-text-fill mx-1"
                                         @click="emit('lyrics')" />
-                                    <button type="button" class="btn theme-color bi bi-collection-fill mx-1"
+                                    <button type="button" class="btn player-btn theme-color bi bi-collection-fill mx-1"
                                         @click="emit('queue')" />
-                                    <button type="button" class="btn bi mx-1" :class="props.repeat_icon" @click="repeat" />
+                                    <button type="button" class="btn player-btn bi mx-1" :class="props.repeat_icon"
+                                        @click="repeat" />
                                 </div>
                             </div>
                         </div>
@@ -121,8 +125,8 @@ function _hide() {
     offcanvas.hide();
 }
 
-function formatTime(secs) {
-    let seconds = parseInt(secs);
+function formatTime(milisecs) {
+    let seconds = Math.floor(milisecs / 1000);
     let minutes = Math.floor(seconds / 60);
     seconds = seconds % 60;
     return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;

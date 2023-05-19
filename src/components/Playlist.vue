@@ -30,7 +30,7 @@
                     <div class="pt-2">
                         <router-link :to="'/user/' + playlist.author" class="search-link">
                             <div class="d-inline-flex align-content-center align-items-center">
-                                <span class="purple-on-hover theme-color">{{ playlist.author }}</span>
+                                <span class=" theme-color">{{ playlist.author }}</span>
                             </div>
                         </router-link>
                     </div>
@@ -91,17 +91,16 @@
                         placeholder="Remember, be nice!"></textarea>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button class="btn theme-btn black-on-hover text-white fw-bold" @click="post_comment">Post</button>
+                    <button class="btn theme-btn  text-white fw-bold" @click="post_comment">Post</button>
                 </div>
                 <div>
                     <ul class="list-group list-group-flush mb-3">
                         <li class="list-group-item foreground-content theme-comment-item p-1" v-for="comment in comments">
                             <div class="d-flex flex-column mx-2 py-1">
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <router-link :to="'/user/' + comment.author"
-                                        class="theme-color purple-on-hover fw-bold">{{
-                                            comment.author
-                                        }}</router-link>
+                                    <router-link :to="'/user/' + comment.author" class="theme-color  fw-bold">{{
+                                        comment.author
+                                    }}</router-link>
                                     <span class="text-muted timestamp">{{ format_date(comment.created_at)
                                     }}</span>
                                 </div>
@@ -111,7 +110,7 @@
                     </ul>
                     <div class="d-flex justify-content-end">
                         <button v-show="searchFinished && comments.length" type="button"
-                            class="btn theme-btn black-on-hover text-white fw-bold" @click="load_more">Load more</button>
+                            class="btn theme-btn  text-white fw-bold" @click="load_more">Load more</button>
                         <button v-show="!searchFinished && comments.length" class="btn btn-dark" type="button" disabled>
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             Loading...

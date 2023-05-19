@@ -21,13 +21,11 @@
                         <div class="pt-2">
                             <div class="d-flex flex-wrap">
                                 <div class="me-2">
-                                    <button ref="wiki_btn" type="button"
-                                        class="btn theme-btn black-on-hover text-white fw-bold"
+                                    <button ref="wiki_btn" type="button" class="btn theme-btn  text-white fw-bold"
                                         :class="{ 'disabled': about_disabled }" @click="get_wiki_page">Wikipedia</button>
                                 </div>
                                 <div>
-                                    <button ref="lastfm_btn" type="button"
-                                        class="btn theme-btn black-on-hover text-white fw-bold"
+                                    <button ref="lastfm_btn" type="button" class="btn theme-btn  text-white fw-bold"
                                         :class="{ 'disabled': about_disabled }" @click="get_lastfm_page">Last.fm</button>
                                 </div>
                             </div>
@@ -89,17 +87,16 @@
                         placeholder="Remember, be nice!"></textarea>
                 </div>
                 <div class="d-flex justify-content-end">
-                    <button class="btn theme-btn black-on-hover text-white fw-bold" @click="post_comment">Post</button>
+                    <button class="btn theme-btn  text-white fw-bold" @click="post_comment">Post</button>
                 </div>
                 <div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item theme-comment-item p-1" v-for="comment in comments">
                             <div>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <router-link :to="'/user/' + comment.author"
-                                        class="theme-color purple-on-hover fw-bold me-2">{{
-                                            comment.author
-                                        }}</router-link>
+                                    <router-link :to="'/user/' + comment.author" class="theme-color  fw-bold me-2">{{
+                                        comment.author
+                                    }}</router-link>
                                     <span class="text-muted timestamp">{{ format_date(comment.created_at)
                                     }}</span>
                                 </div>
@@ -109,7 +106,7 @@
                     </ul>
                     <div class="d-flex justify-content-end">
                         <button v-show="searchFinished && comments.length" type="button"
-                            class="btn theme-btn black-on-hover text-white fw-bold" @click="get_comments">Load more</button>
+                            class="btn theme-btn  text-white fw-bold" @click="get_comments">Load more</button>
                         <button v-show="!searchFinished && comments.length" class="btn btn-dark" type="button" disabled>
                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                             Loading...

@@ -1,33 +1,29 @@
 <template>
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <router-link :to="'/user/' + username"
-                class="nav-link fw-bold purple-on-hover theme-color">Profile</router-link>
+            <router-link :to="'/user/' + username" class="nav-link fw-bold  theme-color">Profile</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/history'"
-                class="nav-link fw-bold purple-on-hover theme-color">Listening
+            <router-link :to="'/user/' + username + '/history'" class="nav-link fw-bold  theme-color">Listening
                 History</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/tracks'" class="nav-link fw-bold purple-on-hover theme-color">Favorite
+            <router-link :to="'/user/' + username + '/tracks'" class="nav-link fw-bold  theme-color">Favorite
                 Tracks</router-link>
         </li>
         <li class="nav-item">
             <router-link :to="'/user/' + username + '/playlists'"
-                class="nav-link fw-bold purple-on-hover theme-color">Playlists</router-link>
+                class="nav-link fw-bold  theme-color">Playlists</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/albums'"
-                class="nav-link fw-bold purple-on-hover theme-color">Albums</router-link>
+            <router-link :to="'/user/' + username + '/albums'" class="nav-link fw-bold  theme-color">Albums</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/artists'"
-                class="nav-link fw-bold purple-on-hover theme-color">Artists</router-link>
+            <router-link :to="'/user/' + username + '/artists'" class="nav-link fw-bold  theme-color">Artists</router-link>
         </li>
         <li class="nav-item">
             <router-link :to="'/user/' + username + '/friends'"
-                class="nav-link fw-bold theme-btn black-on-hover text-white">Friends</router-link>
+                class="nav-link fw-bold theme-btn  text-white">Friends</router-link>
         </li>
     </ul>
     <hr />
@@ -53,7 +49,7 @@
                         </div>
                     </div>
                     <div class="d-flex flex-fill">
-                        <h6 class="fw-bold text-break text-wrap clickable theme-color purple-on-hover p-2 ps-0"
+                        <h6 class="fw-bold text-break text-wrap clickable theme-color  p-2 ps-0"
                             @click="openProfile(friend.username)">{{ friend.username }}</h6>
                     </div>
                 </div>

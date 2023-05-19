@@ -12,8 +12,7 @@
                             <span class="fw-bold">Queue</span>
                         </div>
                         <div>
-                            <button class="btn btn-dark theme-btn black-on-hover fw-bold"
-                                @click="clear_queue">Clear</button>
+                            <button class="btn btn-dark theme-btn  fw-bold" @click="clear_queue">Clear</button>
                         </div>
                     </div>
                 </li>
@@ -35,8 +34,8 @@
                         </div>
                     </div>
                     <div class="d-flex h-100 align-items-center">
-                        <button class="btn theme-btn black-on-hover text-white fw-bold action-btn bi bi-x ms-0 m-2"
-                            type="button" @click="remove_track(index)"></button>
+                        <button class="btn theme-btn  text-white fw-bold action-btn bi bi-x ms-0 m-2" type="button"
+                            @click="remove_track(index)"></button>
                     </div>
                 </li>
             </ul>

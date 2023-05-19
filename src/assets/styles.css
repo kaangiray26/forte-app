@@ -139,15 +139,6 @@ img {
     margin: 0px;
 }
 
-.red-on-hover {
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.red-on-hover:hover {
-    color: var(--bs-danger);
-}
-
 .smooth-scroll {
     scroll-behavior: smooth;
 }
@@ -284,6 +275,14 @@ img {
     background-color: rgb(33, 37, 41, 0.75);
 }
 
+.player-btn {
+    border: 0 !important;
+}
+
+.player-btn:active {
+    color: var(--text-muted) !important;
+}
+
 /* 
 ------
 THEMES
@@ -355,18 +354,6 @@ hr {
 
 .clickable-opacity:hover {
     opacity: 0.75 !important;
-}
-
-.red-on-hover:hover {
-    color: var(--bs-danger) !important;
-}
-
-.black-on-hover:hover {
-    color: #191922 !important;
-}
-
-.purple-on-hover:hover {
-    color: #595AFF !important;
 }
 
 .purple-color {

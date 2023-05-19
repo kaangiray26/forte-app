@@ -13,7 +13,7 @@
                 <h3 class="theme-color fw-bold mb-0">Artists</h3>
                 <div class="dropdown">
                     <button
-                        class="dropdown-toggle bi bi-layers-fill btn theme-btn black-on-hover text-white fw-bold flex-nowrap text-start"
+                        class="dropdown-toggle bi bi-layers-fill btn theme-btn  text-white fw-bold flex-nowrap text-start"
                         type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     </button>
                     <ul class="dropdown-menu">

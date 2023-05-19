@@ -29,7 +29,7 @@
                     <div class="pt-2">
                         <div class="d-flex flex-wrap">
                             <div class="m-1">
-                                <button ref="wiki_btn" type="button" class="btn theme-btn black-on-hover text-white fw-bold"
+                                <button ref="wiki_btn" type="button" class="btn theme-btn  text-white fw-bold"
                                     @click="get_website">Website</button>
                             </div>
                         </div>

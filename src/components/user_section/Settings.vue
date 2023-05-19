@@ -1,33 +1,28 @@
 <template>
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <router-link :to="'/user/' + username"
-                class="nav-link fw-bold theme-btn black-on-hover text-white">Profile</router-link>
+            <router-link :to="'/user/' + username" class="nav-link fw-bold theme-btn  text-white">Profile</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/history'"
-                class="nav-link fw-bold purple-on-hover theme-color">Listening
+            <router-link :to="'/user/' + username + '/history'" class="nav-link fw-bold  theme-color">Listening
                 History</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/tracks'" class="nav-link fw-bold purple-on-hover theme-color">Favorite
+            <router-link :to="'/user/' + username + '/tracks'" class="nav-link fw-bold  theme-color">Favorite
                 Tracks</router-link>
         </li>
         <li class="nav-item">
             <router-link :to="'/user/' + username + '/playlists'"
-                class="nav-link fw-bold purple-on-hover theme-color">Playlists</router-link>
+                class="nav-link fw-bold  theme-color">Playlists</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/albums'"
-                class="nav-link fw-bold purple-on-hover theme-color">Albums</router-link>
+            <router-link :to="'/user/' + username + '/albums'" class="nav-link fw-bold  theme-color">Albums</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/artists'"
-                class="nav-link fw-bold purple-on-hover theme-color">Artists</router-link>
+            <router-link :to="'/user/' + username + '/artists'" class="nav-link fw-bold  theme-color">Artists</router-link>
         </li>
         <li class="nav-item">
-            <router-link :to="'/user/' + username + '/friends'"
-                class="nav-link fw-bold purple-on-hover theme-color">Friends</router-link>
+            <router-link :to="'/user/' + username + '/friends'" class="nav-link fw-bold  theme-color">Friends</router-link>
         </li>
     </ul>
     <hr />

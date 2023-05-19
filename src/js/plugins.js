@@ -1,7 +1,8 @@
 // plugins.js
 import { registerPlugin } from '@capacitor/core';
 
-export let MediaControl;
+let MediaControl;
+let NativePlayer;
 
 if (window.navigator.mediaSession) {
     MediaControl = {
@@ -17,6 +18,24 @@ if (window.navigator.mediaSession) {
             return
         }
     }
+
+    NativePlayer = {
+        playDataSource: async function (obj) {
+            return
+        },
+        addListener: async function (obj) {
+            return
+        },
+        play: async function (obj) {
+            return
+        },
+        pause: async function (obj) {
+            return
+        }
+    }
 } else {
     MediaControl = registerPlugin('MediaControl');
+    NativePlayer = registerPlugin('NativePlayer');
 }
+
+export { MediaControl, NativePlayer }

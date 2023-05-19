@@ -41,6 +41,15 @@ const userContextModal = ref(null);
 
 const playlistSelection = ref(null);
 
+async function blobToBase64(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.readAsDataURL(blob);
+    });
+}
+
+
 async function _right_click(obj) {
     selectedItem.value = obj.item;
 
@@ -320,9 +329,10 @@ async function federatedContextMenuEvent(event) {
     if (event == 'downloadTrack') {
         let data = await ft.fAPI(selectedItem.value.server, "/track/" + selectedItem.value.id + "/basic");
         let response = await ft.downloadTrack(selectedItem.value.id, selectedItem.value.server);
-        downloadLink.value.href = window.URL.createObjectURL(response);
-        downloadLink.value.download = `${data.track.disc_number} - ${data.track.track_position} - ${data.track.title}.flac`;
-        downloadLink.value.click();
+
+        // downloadLink.value.href = window.URL.createObjectURL(response);
+        // downloadLink.value.download = `${data.track.disc_number} - ${data.track.track_position} - ${data.track.title}.flac`;
+        // downloadLink.value.click();
         return
     }
 
@@ -598,9 +608,14 @@ async function contextMenuEvent(event) {
     if (event == 'downloadTrack') {
         let data = await ft.API("/track/" + selectedItem.value.id + "/basic");
         let response = await ft.downloadTrack(selectedItem.value.id);
-        downloadLink.value.href = window.URL.createObjectURL(response);
-        downloadLink.value.download = `${data.track.disc_number} - ${data.track.track_position} - ${data.track.title}.flac`;
-        downloadLink.value.click();
+
+        console.log(response);
+
+        let b64 = await blobToBase64(response);
+
+        console.log("Writing file to IndexedDB...", data, b64);
+        await ft.save_track(data.track, b64);
+        console.log("Done!");
         return
     }
 

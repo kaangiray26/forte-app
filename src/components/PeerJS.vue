@@ -31,7 +31,7 @@
         <div class="input-group mb-2">
             <input ref="message" type="text" class="form-control search-card-input" placeholder="Send a message..."
                 @keyup.enter="sendMessage">
-            <button class="btn theme-btn black-on-hover text-white fw-bold" @click="sendMessage">Send</button>
+            <button class="btn theme-btn  text-white fw-bold" @click="sendMessage">Send</button>
         </div>
     </div>
     <div v-show="alert.show">

@@ -1,32 +1,33 @@
 <template>
     <ul class="nav nav-pills">
         <li class="nav-item">
-            <router-link to="/profile" class="nav-link fw-bold purple-on-hover theme-color">Profile</router-link>
+            <router-link to="/profile" class="nav-link fw-bold  theme-color">Profile</router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/profile/history" class="nav-link fw-bold purple-on-hover theme-color">Listening
+            <router-link to="/profile/history" class="nav-link fw-bold  theme-color">Listening
                 History</router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/profile/tracks" class="nav-link fw-bold purple-on-hover theme-color">Favorite
+            <router-link to="/profile/tracks" class="nav-link fw-bold  theme-color">Favorite
                 Tracks</router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/profile/playlists"
-                class="nav-link fw-bold purple-on-hover theme-color">Playlists</router-link>
+            <router-link to="/profile/playlists" class="nav-link fw-bold  theme-color">Playlists</router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/profile/albums" class="nav-link fw-bold purple-on-hover theme-color">Albums</router-link>
+            <router-link to="/profile/albums" class="nav-link fw-bold  theme-color">Albums</router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/profile/artists" class="nav-link fw-bold purple-on-hover theme-color">Artists</router-link>
+            <router-link to="/profile/artists" class="nav-link fw-bold  theme-color">Artists</router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/profile/stations"
-                class="nav-link fw-bold theme-btn black-on-hover text-white ">Stations</router-link>
+            <router-link to="/profile/stations" class="nav-link fw-bold theme-btn  text-white ">Stations</router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/profile/friends" class="nav-link fw-bold purple-on-hover theme-color">Friends</router-link>
+            <router-link to="/profile/friends" class="nav-link fw-bold  theme-color">Friends</router-link>
+        </li>
+        <li class="nav-item">
+            <router-link to="/profile/downloads" class="nav-link fw-bold  theme-color">Downloads</router-link>
         </li>
     </ul>
     <hr />

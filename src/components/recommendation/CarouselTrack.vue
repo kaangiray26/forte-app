@@ -5,7 +5,7 @@
                 <img class="carousel-img rounded" :src="get_cover(props.track.cover)" @error="placeholder" />
             </div>
             <div class="mt-2">
-                <h6 class="fw-bold clickable theme-color purple-on-hover" @click="openTrack">{{ track.title }}</h6>
+                <h6 class="fw-bold clickable theme-color " @click="openTrack">{{ track.title }}</h6>
             </div>
         </div>
     </div>

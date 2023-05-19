@@ -12,6 +12,22 @@ import '/scss/styles.scss'
 import '/assets/styles.css'
 import '/assets/bootstrap-icons.css'
 
+// Create IndexedDB
+let request = window.indexedDB.open("forte", 1);
+
+request.onsuccess = () => {
+    window.db = request.result;
+    console.log("IndexedDB ready.");
+}
+
+request.onupgradeneeded = () => {
+    let db = request.result;
+    if (!db.objectStoreNames.contains('tracks')) {
+        db.createObjectStore('tracks', { keyPath: 'id' });
+    }
+    console.log("Objectstorage created.");
+}
+
 window.ft = new Forte();
 window.ft.init().then(async () => {
     // setPlaybackState to NONE
@@ -19,7 +35,7 @@ window.ft.init().then(async () => {
         state: "none"
     });
 
-    // // play Action Listener
+    // play Action Listener
     await MediaControl.addListener('fortePlayAction', () => {
         action({
             func: async function op() {
@@ -41,7 +57,7 @@ window.ft.init().then(async () => {
         });
     });
 
-    // // next Action Listener
+    // next Action Listener
     await MediaControl.addListener('forteNextAction', () => {
         action({
             func: async function op() {
@@ -52,7 +68,7 @@ window.ft.init().then(async () => {
         });
     });
 
-    // // previous Action Listener
+    // previous Action Listener
     await MediaControl.addListener('fortePreviousAction', () => {
         action({
             func: async function op() {

@@ -25,7 +25,7 @@
                     </div>
                 </div>
             </div>
-            <div class="progress progress-minified flex-fill mx-2" @click="seekProgress($event)">
+            <div class="progress progress-minified flex-fill mx-2">
                 <div class="progress-bar theme-btn progress-bar-animated" aria-valuenow="0" aria-valuemin="0"
                     aria-valuemax="100" :style="{ 'width': store.playing.progress + '%' }">
                 </div>
@@ -132,7 +132,8 @@ async function seekProgress(ev) {
 
     let rect = src.getBoundingClientRect();
     let x = ev.clientX - rect.left;
-    let point = ft.player.duration() * (x / rect.width);
+
+    let point = await ft.duration() * (x / rect.width);
 
     action({
         func: async function op() {

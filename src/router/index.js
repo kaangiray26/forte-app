@@ -21,6 +21,7 @@ import Playlists from "/components/profile_section/Playlists.vue";
 import Settings from "/components/profile_section/Settings.vue";
 import Stations from "/components/profile_section/Stations.vue";
 import Tracks from "/components/profile_section/Tracks.vue";
+import Downloads from "/components/profile_section/Downloads.vue";
 
 import User from "/components/User.vue";
 import User_Albums from "/components/user_section/Albums.vue";
@@ -134,6 +135,10 @@ const routes = [
                 path: 'tracks',
                 component: Tracks
             },
+            {
+                path: 'downloads',
+                component: Downloads
+            }
         ]
     },
     {

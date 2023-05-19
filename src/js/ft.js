@@ -3,7 +3,7 @@
 
 import { Howl } from 'howler';
 import { store } from './store';
-import { MediaControl } from '/js/plugins.js';
+import { MediaControl, NativePlayer } from '/js/plugins.js';
 
 class Forte {
     constructor() {
@@ -22,16 +22,19 @@ class Forte {
             volume: 1,
         });
 
-        this.player.on('load', () => {
-            this.track_loaded()
-            this.listen_progress()
-            this.track_quality()
-            this.track_lyrics()
-        });
+        NativePlayer.addListener('init', () => {
+            this.listen_progress();
+        })
 
-        this.player.on('end', () => {
+        NativePlayer.addListener('load', (data) => {
+            this.track_loaded(data);
+            this.track_quality();
+            this.track_lyrics();
+        })
+
+        NativePlayer.addListener('end', () => {
             this.track_finished()
-        });
+        })
     }
 
     async init() {
@@ -410,7 +413,6 @@ class Forte {
         store.playing.cover = station.image;
         store.playing.loaded = true;
 
-
         // mediaSession metadata
         MediaControl.setMetadata({
             title: station.text,
@@ -425,6 +427,69 @@ class Forte {
         this.player._src = [response.url];
         this.player.load();
         document.title = station.text;
+    }
+
+    async get_local_tracks() {
+        return new Promise((resolve, reject) => {
+            let tx = window.db.transaction('tracks', 'readwrite');
+            let store = tx.objectStore('tracks');
+            let request = store.getAll()
+
+            request.onsuccess = (event) => {
+                resolve(request.result);
+            }
+
+            request.onerror = (event) => {
+                reject(request.error);
+            }
+        })
+    }
+
+    async load_local_track(track) {
+        store.playing.id = track.id;
+        store.playing.type = track.type;
+        store.playing.title = track.title;
+        store.playing.cover = track.cover;
+        store.playing.album = track.album;
+        store.playing.artist = track.artist;
+        store.playing.server = null;
+        store.playing.loaded = true;
+
+        // Cover
+        let cover = this.get_cover(store.playing.cover);
+
+        // mediaSession metadata
+        MediaControl.setMetadata({
+            title: store.playing.title,
+            duration: parseInt(store.playing.duration),
+            albumArt: cover
+        })
+
+        // PlaybackState
+        MediaControl.setPlaybackState({
+            state: "playing"
+        });
+
+        console.log("Playing:", track.url.slice(0, 25));
+
+        this.player.unload();
+        this.player._src = [track.url];
+        this.player.load();
+        document.title = track.title;
+    }
+
+    async save_track(track, data) {
+        let tx = window.db.transaction('tracks', 'readwrite');
+        let store = tx.objectStore('tracks');
+        store.add({
+            id: track.id,
+            type: track.type,
+            title: track.title,
+            cover: track.cover,
+            album: track.album,
+            artist: track.artist,
+            url: data
+        })
     }
 
     async load_track(track) {
@@ -452,9 +517,10 @@ class Forte {
             state: "playing"
         });
 
-        this.player.unload();
-        this.player._src = [ft.server + '/api/stream/' + track.id + `?session=${this.session}`];
-        this.player.load();
+        NativePlayer.playDataSource({
+            url: ft.server + '/api/stream/' + track.id + `?session=${this.session}`
+        });
+
         document.title = track.title;
     }
 
@@ -490,21 +556,22 @@ class Forte {
 
         let challenge = JSON.parse(localStorage.getItem(`@${track.server}`));
 
-        this.player.unload();
-        this.player._src = [`${address}/f/api/stream/${track.id}?challenge=${challenge}`];
-        this.player.load();
+        NativePlayer.playDataSource({
+            url: address + '/f/api/stream/' + track.id + `?challenge=${challenge}`
+        });
+
         document.title = track.title;
     }
 
-    async track_loaded() {
-        store.playing.duration = this.player.duration();
-        this.player.play();
+    async track_loaded(data) {
+        store.playing.duration = data.duration;
         store.playing.is_playing = true;
     }
 
     async listen_progress() {
-        this.player._sounds[0]._node.addEventListener('timeupdate', () => {
-            store.playing.seek = ft.player.seek();
+        console.log("AddListener");
+        NativePlayer.addListener('timeupdate', (data) => {
+            store.playing.seek = data.position;
             store.playing.progress = (store.playing.seek / store.playing.duration) * 100;
         });
     }
@@ -526,8 +593,8 @@ class Forte {
         let duration = store.playing.duration;
         let kbit = (length * 8) / 1000;
 
-        store.playing.format = response.headers.get("content-type");;
-        store.playing.bitrate = Math.round(kbit / duration);;
+        store.playing.format = response.headers.get("content-type");
+        store.playing.bitrate = Math.round(kbit / duration);
 
         if (store.playing.bitrate <= 160) {
             store.playing.quality = "LQ";
@@ -552,7 +619,8 @@ class Forte {
     async track_finished() {
         if (store.playing.type == 'station') {
             store.queue_index = 0;
-            this.player._sounds[0]._node.pause();
+
+            await NativePlayer.pause();
             store.playing.is_playing = false;
 
             // Change mediaSession playbackState
@@ -597,7 +665,8 @@ class Forte {
             // Radio
             if (this.inGroupSession()) {
                 store.queue_index = 0;
-                this.player._sounds[0]._node.pause();
+
+                await NativePlayer.pause();
                 store.playing.is_playing = false;
 
                 // Change mediaSession playbackState
@@ -639,9 +708,7 @@ class Forte {
         }
 
         if (store.playing.is_playing) {
-            // howler is inconsistent, using this instead
-            this.player._sounds[0]._node.pause();
-            //
+            await NativePlayer.pause();
             store.playing.is_playing = false;
 
             // Change mediaSession playbackState
@@ -651,9 +718,7 @@ class Forte {
             return;
         }
 
-        // howler is inconsistent, using this instead
-        this.player._sounds[0]._node.play();
-
+        await NativePlayer.play();
         store.playing.is_playing = true;
 
         // Change mediaSession playbackState
@@ -777,6 +842,18 @@ class Forte {
     async playStation(station) {
         store.queue_index = 0;
         this.load_station(station);
+    }
+
+    async playLocalTrack(track_id) {
+        let tx = db.transaction("tracks", "readonly");
+        let store = tx.objectStore("tracks");
+        let request = store.get(track_id);
+
+        request.onsuccess = () => {
+            let track = request.result;
+            this.load_local_track(track);
+            // ft.addToQueueStart([track]);
+        }
     }
 
     async playTrack(track_id, domain = null) {
@@ -1061,9 +1138,10 @@ class Forte {
         let response = await fetch(this.server + '/api/stream/' + track_id + `?session=${this.session}`, {
             method: "GET",
             credentials: "include"
-        }).then((response) => {
+        }).then(async (response) => {
             return response.blob();
         });
+
         return response;
     }
 
@@ -1195,9 +1273,10 @@ class Forte {
         }
     }
 
-    // howler is inconsistent, using this instead
     async seek(time) {
-        this.player._sounds[0]._node.currentTime = time;
+        await NativePlayer.seek({
+            position: parseInt(time)
+        });
     }
 
     getCurrentQueue() {
@@ -1288,6 +1367,10 @@ class Forte {
             .then(data => data.map(server => server.path))
             .catch(() => []);
         localStorage.setItem('federated_servers', JSON.stringify(servers));
+    }
+
+    async duration() {
+        return store.playing.duration;
     }
 }
 

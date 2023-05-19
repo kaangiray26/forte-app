@@ -8,7 +8,7 @@
                 History</router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/profile/tracks" class="nav-link fw-bold theme-btn  text-white">Favorite
+            <router-link to="/profile/tracks" class="nav-link fw-bold  theme-color">Favorite
                 Tracks</router-link>
         </li>
         <li class="nav-item">
@@ -27,7 +27,7 @@
             <router-link to="/profile/friends" class="nav-link fw-bold  theme-color">Friends</router-link>
         </li>
         <li class="nav-item">
-            <router-link to="/profile/downloads" class="nav-link fw-bold  theme-color">Downloads</router-link>
+            <router-link to="/profile/downloads" class="nav-link fw-bold theme-btn  text-white">Downloads</router-link>
         </li>
     </ul>
     <hr />
@@ -100,87 +100,34 @@ async function placeholder(obj) {
 
 // Must be synchronized in groupSession: ok
 async function playTrack(track) {
-    // Federated
-    if (track.server) {
-        action({
-            func: async function op() {
-                ft.playTrack(track.id, track.server)
-            },
-            object: [track.id, track.server],
-            operation: "playTrack"
-        })
-        return
-    }
-
     action({
         func: async function op() {
-            ft.playTrack(track.id)
+            ft.playLocalTrack(track.id)
         },
         object: [track.id],
         operation: "playTrack"
     })
 }
 
-async function get_federated_tracks(track_ids, order, _offset) {
-    // Categorize ids by domain
-    let domains = {};
-    for (let track_id of track_ids) {
-        let [id, domain] = track_id.split('@');
-        if (!domains[domain]) {
-            domains[domain] = [];
-        }
-        domains[domain].push(parseInt(id));
-    }
-
-    // Get federated tracks from each domain
-    for (let domain in domains) {
-        let data = await ft.get_federated_tracks(domain, domains[domain]);
-        if (!data) return;
-
-        data.tracks.map(track => track.server = domain);
-        for (let i = 0; i < order.length; i++) {
-            let track_id = order[i];
-            let found_tracks = data.tracks.filter(t => `${t.id}@${t.server}` == track_id);
-            if (found_tracks.length) {
-                tracks.value[i + _offset] = found_tracks[0];
-            }
-        }
-    }
-}
-
-async function get_tracks() {
+async function get_local_tracks() {
     if (!searchFinished.value) {
         return
     }
     searchFinished.value = false;
 
-    let data = await ft.API(`/profile/tracks/${offset.value}/${total.value}`);
+    let data = await ft.get_local_tracks();
     if (!data) return;
 
     // Push track placeholders
-    for (let i = 0; i < data.order.length; i++) {
-        tracks.value.push({});
+    for (let i = 0; i < data.length; i++) {
+        tracks.value.push(data[i]);
     }
 
-    // Get federated tracks
-    get_federated_tracks(data.federated, data.order, offset.value);
-
-    // Get local tracks
-    for (let i = 0; i < data.order.length; i++) {
-        let track_id = data.order[i];
-        let tracks_found = data.tracks.filter(t => t.id == track_id);
-        if (tracks_found.length) {
-            tracks.value[i + offset.value] = tracks_found[0];
-        }
-    }
-
-    total.value = data.total;
-    offset.value += data.order.length;
-
+    total.value = data.length;
     searchFinished.value = true;
 }
 
 onMounted(() => {
-    get_tracks();
+    get_local_tracks();
 })
 </script>
