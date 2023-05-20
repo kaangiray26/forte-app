@@ -5,7 +5,7 @@ import { Forte } from '/js/ft.js'
 import { action } from '/js/events.js'
 
 // Import our custom JS
-import { MediaControl } from '/js/plugins.js'
+import { MediaControl, NativePlayer } from '/js/plugins.js'
 
 // Import our custom CSS
 import '/scss/styles.scss'

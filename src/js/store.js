@@ -18,7 +18,7 @@ const store = reactive({
         cover: null,
         seek: 0,
         repeat: 0,
-        duration: 0,
+        duration: 1,
         progress: 0,
         radio: false,
         bitrate: 0,

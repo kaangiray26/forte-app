@@ -22,9 +22,10 @@ class Forte {
             volume: 1,
         });
 
-        NativePlayer.addListener('init', () => {
-            this.listen_progress();
-        })
+        NativePlayer.addListener('timeupdate', (data) => {
+            store.playing.seek = data.position;
+            store.playing.progress = (store.playing.seek / store.playing.duration) * 100;
+        });
 
         NativePlayer.addListener('load', (data) => {
             this.track_loaded(data);
