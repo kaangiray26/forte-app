@@ -47,20 +47,18 @@
     <div class="row g-3 mx-0">
         <ul class="list-group p-0">
             <div v-for="station in stations">
-                <li class="list-group-item theme-list-item clickable rounded d-flex p-1"
-                    @click="openStation(station.guide_id, station.hover)">
+                <li class="list-group-item theme-list-item clickable rounded d-flex p-1">
                     <div class="d-flex w-100 foreground justify-content-between">
                         <div class="d-flex">
-                            <div @mouseenter="station.hover = true" @mouseleave="station.hover = false"
-                                class="d-inline-flex align-items-center position-relative">
+                            <div class="d-inline-flex justify-content-center align-items-center position-relative">
                                 <img :src="station.image" class="track-cover theme-border rounded" @error="placeholder" />
-                                <div v-if="station.hover" class="position-absolute bottom-0 right-0">
-                                    <button class="btn btn-light action-btn bi bi-play-fill m-2" type="button"
+                                <div class="position-absolute shadow opacity-75">
+                                    <button class="btn btn-light action-btn bi bi-play-fill" type="button"
                                         @click="play_station(station)">
                                     </button>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center" @click="openStation(station.guide_id)">
                                 <button class="btn btn-link search-link d-flex flex-column text-start py-0"
                                     style="display:contents;">
                                     <span class="theme-color text-break">{{ station.text }}</span>
@@ -78,7 +76,7 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { right_click } from '/js/events.js';
+import { Keyboard } from '@capacitor/keyboard';
 
 const router = useRouter();
 
@@ -101,8 +99,7 @@ async function placeholder(obj) {
     obj.target.src = "/images/station.svg";
 }
 
-async function openStation(id, hover) {
-    if (hover) return;
+async function openStation(id) {
     router.push("/station/" + id);
 }
 
@@ -111,6 +108,7 @@ async function play_station(station) {
 }
 
 async function search_station() {
+    Keyboard.hide();
     if (!searchFinished.value) {
         return
     }
@@ -125,10 +123,6 @@ async function search_station() {
     if (!data || data.error) {
         return;
     }
-
-    data.stations.forEach(station => {
-        station.hover = false;
-    });
 
     stations.value = data.stations;
     searchFinished.value = true;

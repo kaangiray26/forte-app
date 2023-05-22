@@ -14,13 +14,6 @@ class Forte {
         this.session = null;
 
         this.track = null;
-        this.player = new Howl({
-            src: [null],
-            format: ['flac', 'mp3', 'ogg', 'wav', 'aac', 'm4a', 'opus', 'webm'],
-            preload: true,
-            html5: true,
-            volume: 1,
-        });
 
         NativePlayer.addListener('timeupdate', (data) => {
             store.playing.seek = data.position;
@@ -417,16 +410,22 @@ class Forte {
         // mediaSession metadata
         MediaControl.setMetadata({
             title: station.text,
+            duration: 0,
             albumArt: store.playing.cover
-        })
+        });
+
+        // PlaybackState
+        MediaControl.setPlaybackState({
+            state: "playing"
+        });
 
         // Get station url
         let response = await this.API(`/station/${station.guide_id}/url`);
         if (!response || !response.url) return;
 
-        this.player.unload();
-        this.player._src = [response.url];
-        this.player.load();
+        NativePlayer.playDataSource({
+            url: response.url
+        });
         document.title = station.text;
     }
 
@@ -471,11 +470,9 @@ class Forte {
             state: "playing"
         });
 
-        console.log("Playing:", track.url.slice(0, 25));
-
-        this.player.unload();
-        this.player._src = [track.url];
-        this.player.load();
+        NativePlayer.playDataSource({
+            url: track.url
+        });
         document.title = track.title;
     }
 
@@ -511,7 +508,7 @@ class Forte {
             title: store.playing.title,
             duration: parseInt(store.playing.duration),
             albumArt: cover
-        })
+        });
 
         // PlaybackState
         MediaControl.setPlaybackState({
@@ -565,6 +562,10 @@ class Forte {
     }
 
     async track_loaded(data) {
+        if (data.duration < 0) {
+            data.duration = 0;
+        }
+
         store.playing.duration = data.duration;
         store.playing.is_playing = true;
     }
@@ -696,7 +697,9 @@ class Forte {
 
     async mute() {
         store.playing.muted = !store.playing.muted;
-        ft.player.mute(store.playing.muted);
+        NativePlayer.mute({
+            muted: store.playing.muted
+        });
     }
 
     async repeat() {
@@ -1303,7 +1306,7 @@ class Forte {
         store.playing.loaded = false;
         store.playing.seek = 0;
         store.playing.progress = 0;
-        this.player.unload();
+        NativePlayer.reset();
 
     }
 

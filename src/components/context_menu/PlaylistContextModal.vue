@@ -4,7 +4,7 @@
             <h5 class="offcanvas-title">Playlist Options</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="p-0 overflow-y-auto">
+        <div ref="scroll" class="p-0 overflow-y-auto">
             <ul id="playlistMenu" class="list-group list-group-flush" @click="action('playPlaylist')">
                 <li class="list-group-item list-group-item-action">
                     <span class="bi bi-play-fill me-1"></span>Play
@@ -36,7 +36,7 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Offcanvas } from 'bootstrap';
 
 let offcanvas = null;
@@ -50,6 +50,7 @@ const props = defineProps({
 })
 
 async function _show() {
+    scroll.value.scrollTop = 0;
     offcanvas.show();
 }
 

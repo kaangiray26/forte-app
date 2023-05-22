@@ -84,13 +84,11 @@ public class NativePlayer extends Plugin {
         progressRunnable = new Runnable() {
             @Override
             public void run(){
-                if(mediaPlayer.isPlaying()){
-                    JSObject ret = new JSObject();
-                    ret.put("position", mediaPlayer.getCurrentPosition());
-                    
-                    notifyListeners("timeupdate", ret);
-                    handler.postDelayed(this, 1000);
-                }
+                JSObject ret = new JSObject();
+                ret.put("position", mediaPlayer.getCurrentPosition());
+                
+                notifyListeners("timeupdate", ret);
+                handler.postDelayed(this, 1000);
             }
         };
 
@@ -138,6 +136,26 @@ public class NativePlayer extends Plugin {
         String position = data.getString("position");
 
         mediaPlayer.seekTo(Integer.parseInt(position));
+
+        call.resolve();
+    }
+
+    @PluginMethod
+    public void reset(PluginCall call){
+        mediaPlayer.reset();
+        call.resolve();
+    }
+
+    @PluginMethod
+    public void mute(PluginCall call){
+        JSObject data = call.getData();
+        String volume = data.getString("muted");
+
+        if(volume.equals("true")){
+            mediaPlayer.setVolume(0.0f, 0.0f);
+        } else {
+            mediaPlayer.setVolume(1.0f, 1.0f);
+        }
 
         call.resolve();
     }

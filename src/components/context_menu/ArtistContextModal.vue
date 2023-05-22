@@ -4,7 +4,7 @@
             <h5 class="offcanvas-title">Artist Options</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
         </div>
-        <div class="p-0 overflow-y-auto">
+        <div ref="scroll" class="p-0 overflow-y-auto">
             <ul id="artistMenu" class="list-group list-group-flush">
                 <li v-show="!props.loved" class="list-group-item list-group-item-action" @click="action('addToLoved')">
                     <span class="bi bi-star me-1"></span>Like
@@ -24,11 +24,12 @@
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Offcanvas } from 'bootstrap';
 
 let offcanvas = null;
 const emit = defineEmits(['context-menu-event']);
+const scroll = ref(null);
 
 const props = defineProps({
     loved: {
@@ -38,6 +39,7 @@ const props = defineProps({
 })
 
 async function _show() {
+    scroll.value.scrollTop = 0;
     offcanvas.show();
 }
 

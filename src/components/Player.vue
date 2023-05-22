@@ -65,8 +65,6 @@ const mobileViewEl = ref(null);
 const mobilePlayer = ref(null);
 const volume = ref(100);
 
-const volumeButton = ref(null);
-
 const groupSession = ref(null);
 const group_key = ref(0);
 
@@ -87,26 +85,6 @@ function get_cover(cover) {
 
     return ft.server + '/' + cover;
 }
-
-async function muteVolume() {
-    ft.mute();
-}
-
-const volume_icon = computed(() => {
-    if (store.playing.muted) {
-        return 'bi-volume-mute-fill';
-    }
-    if (volume.value > 75) {
-        return 'bi-volume-up-fill';
-    }
-    if (volume.value > 50) {
-        return 'bi-volume-down-fill';
-    }
-    if (volume.value > 0) {
-        return 'bi-volume-off-fill';
-    }
-    return 'bi-volume-mute-fill';
-});
 
 const repeat_icon = computed(() => {
     if (store.playing.repeat == 0) {
@@ -223,13 +201,13 @@ defineExpose({
 })
 
 onMounted(() => {
-    let vol = JSON.parse(localStorage.getItem('volume'));
-    if (vol) {
-        volume.value = parseInt(parseFloat(vol) * 100);
-        ft.player.volume(volume.value / 100);
-    } else {
-        localStorage.setItem('volume', JSON.stringify(volume.value / 100));
-    }
+    // let vol = JSON.parse(localStorage.getItem('volume'));
+    // if (vol) {
+    //     volume.value = parseInt(parseFloat(vol) * 100);
+    //     ft.player.volume(volume.value / 100);
+    // } else {
+    //     localStorage.setItem('volume', JSON.stringify(volume.value / 100));
+    // }
 
     // Swipe events
     let hammertime = new Hammer(mobilePlayer.value);

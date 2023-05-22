@@ -51,6 +51,7 @@
 import { ref, watch, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router'
 import { action, right_click } from '/js/events.js';
+import { Keyboard } from '@capacitor/keyboard';
 
 const router = useRouter();
 const results = ref([]);
@@ -111,6 +112,7 @@ function debounce(func, timeout = 200) {
 }
 
 async function search_now() {
+    Keyboard.hide();
     let query = search_field.value.value;
     if (!query.length) {
         search_field.value.focus();
