@@ -471,12 +471,12 @@ class Forte {
         });
 
         NativePlayer.playDataSource({
-            url: track.url
+            url: track.path
         });
         document.title = track.title;
     }
 
-    async save_track(track, data) {
+    async save_track(track, uri) {
         let tx = window.db.transaction('tracks', 'readwrite');
         let store = tx.objectStore('tracks');
         store.add({
@@ -486,7 +486,7 @@ class Forte {
             cover: track.cover,
             album: track.album,
             artist: track.artist,
-            url: data
+            path: uri
         })
     }
 

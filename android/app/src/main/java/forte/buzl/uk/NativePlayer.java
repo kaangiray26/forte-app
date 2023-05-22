@@ -51,31 +51,6 @@ public class NativePlayer extends Plugin {
                 notifyListeners("load", ret);
             }
         });
-    }
-
-    @PluginMethod
-    public void playDataSource(PluginCall call){
-        JSObject data = call.getData();
-        String url = data.getString("url");
-
-        mediaPlayer.setAudioAttributes(
-            new AudioAttributes.Builder()
-            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-            .setUsage(AudioAttributes.USAGE_MEDIA)
-            .build()
-        );
-
-        if (mediaPlayer != null) {
-            mediaPlayer.reset();
-        }
-
-        try{
-            mediaPlayer.setDataSource(url);
-            mediaPlayer.prepare();
-            mediaPlayer.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         // Create a Handler to handle periodic updates
         handler = new Handler();
@@ -93,6 +68,32 @@ public class NativePlayer extends Plugin {
         };
 
         handler.postDelayed(progressRunnable, 0);
+    }
+
+    @PluginMethod
+    public void playDataSource(PluginCall call){
+        JSObject data = call.getData();
+        String url = data.getString("url");
+
+        System.out.println("URL:" + url);
+
+        mediaPlayer.setAudioAttributes(
+            new AudioAttributes.Builder()
+            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+            .setUsage(AudioAttributes.USAGE_MEDIA)
+            .build()
+        );
+
+        if (mediaPlayer != null) {
+            mediaPlayer.reset();
+        }
+
+        try{
+            mediaPlayer.setDataSource(url);
+            mediaPlayer.prepareAsync();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         call.resolve();
     }
 
