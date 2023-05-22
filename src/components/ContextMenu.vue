@@ -610,18 +610,19 @@ async function contextMenuEvent(event) {
         let data = await ft.API("/track/" + selectedItem.value.id + "/basic");
         let response = await ft.downloadTrack(selectedItem.value.id);
         console.log("Writing file to Filesystem...");
-        const reader = new FileReader();
-        reader.readAsDataURL(response);
+
+        let reader = new FileReader();
         reader.onloadend = async () => {
-            let path = await Filesystem.writeFile({
+            Filesystem.writeFile({
                 path: `forte/${self.crypto.randomUUID()}`,
                 data: reader.result,
                 recursive: true,
                 directory: Directory.Data,
+            }).then(filepath => {
+                ft.save_track(data.track, filepath.uri);
             });
-            await ft.save_track(data.track, path.uri);
-            console.log("Done!", path.uri);
         }
+        reader.readAsDataURL(response);
         return
     }
 
