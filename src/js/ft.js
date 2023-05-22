@@ -1,7 +1,6 @@
 // ft.js
 // Forte Javascript Library
 
-import { Howl } from 'howler';
 import { store } from './store';
 import { MediaControl, NativePlayer } from '/js/plugins.js';
 

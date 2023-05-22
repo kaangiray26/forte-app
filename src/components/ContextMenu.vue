@@ -609,7 +609,6 @@ async function contextMenuEvent(event) {
     if (event == 'downloadTrack') {
         let data = await ft.API("/track/" + selectedItem.value.id + "/basic");
         let response = await ft.downloadTrack(selectedItem.value.id);
-
         console.log("Writing file to Filesystem...");
         const reader = new FileReader();
         reader.readAsDataURL(response);
