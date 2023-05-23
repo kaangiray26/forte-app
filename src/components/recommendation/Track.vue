@@ -3,7 +3,7 @@
         <div class="p-0">
             <div class="position-relative rounded">
                 <div class="ph rounded" @click="openTrack">
-                    <img class="img-fluid placeholder-img rounded" :src="get_cover(props.track.cover)"
+                    <img class="img-square img-fluid placeholder-img rounded" :src="get_cover(props.track.cover)"
                         @error="placeholder" />
                 </div>
                 <div class="position-absolute bottom-0 right-0 m-2">

@@ -5,15 +5,12 @@ import { Forte } from '/js/ft.js'
 import { action } from '/js/events.js'
 
 // Import our custom JS
-import { MediaControl, NativePlayer } from '/js/plugins.js'
+import { MediaControl } from '/js/plugins.js'
 
 // Import our custom CSS
 import '/scss/styles.scss'
 import '/assets/styles.css'
 import '/assets/bootstrap-icons.css'
-
-// Create DB
-localStorage.setItem('tracks', JSON.stringify([]));
 
 window.ft = new Forte();
 window.ft.init().then(async () => {

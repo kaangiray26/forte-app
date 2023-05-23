@@ -7,13 +7,13 @@
             </button>
         </div>
     </div>
-    <div class="card rounded-0 border-0 m-3" v-show="loaded">
-        <div class="card-body rounded px-3">
+    <div class="card rounded-0 border-0" v-show="loaded">
+        <div class="card-body rounded p-4">
             <div class="row g-3">
                 <div class="col-12">
                     <div class="d-flex position-relative">
                         <div class="ph rounded">
-                            <img class="playlist-img rounded" :src="get_cover()" @error="placeholder" />
+                            <img class="img-square playlist-img rounded" :src="get_cover()" @error="placeholder" />
                         </div>
                         <div class="position-absolute bottom-0 right-0">
                             <button class="btn btn-light action-btn bi bi-pencil-square m-2" type="button"

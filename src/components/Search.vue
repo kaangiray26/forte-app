@@ -8,8 +8,8 @@
             </div>
         </li>
     </ul>
-    <ul v-if="!store.offline" class="list-group rounded-0 m-3 px-3 pb-3 theme-background">
-        <div class="card-body py-3">
+    <ul v-if="!store.offline" class="list-group rounded-0 theme-background p-4">
+        <div class="card-body mb-3">
             <div class="d-flex flex-column">
                 <div class="d-inline-flex input-group flex-nowrap">
                     <input ref="search_field" type="text" class="form-control search-card-input" placeholder="Search"

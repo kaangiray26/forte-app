@@ -2,7 +2,7 @@
     <div class="card border-0" @contextmenu.prevent="right_click({ item: props.track, event: $event })">
         <div class="p-0">
             <div class="ph rounded" @click="openTrack">
-                <img class="carousel-img rounded" :src="get_cover(props.track.cover)" @error="placeholder" />
+                <img class="img-square carousel-img rounded" :src="get_cover(props.track.cover)" @error="placeholder" />
             </div>
             <div class="mt-2">
                 <h6 class="fw-bold clickable theme-color " @click="openTrack">{{ track.title }}</h6>

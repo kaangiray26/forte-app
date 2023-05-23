@@ -15,7 +15,7 @@ import { ref, onMounted } from "vue";
 import { notify, action } from "/js/events.js";
 import { useRouter } from 'vue-router'
 import { Share } from '@capacitor/share';
-import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { Filesystem, Directory } from '@capacitor/filesystem';
 
 import TrackContextModal from "./context_menu/TrackContextModal.vue";
 import AlbumContextModal from "./context_menu/AlbumContextModal.vue";
@@ -600,16 +600,15 @@ async function contextMenuEvent(event) {
     if (event == 'downloadTrack') {
         let data = await ft.API("/track/" + selectedItem.value.id + "/basic");
         let response = await ft.downloadTrack(selectedItem.value.id);
-        console.log("Writing file to Filesystem...");
-
         let reader = new FileReader();
+
         reader.onloadend = async () => {
             Filesystem.writeFile({
                 path: `forte/${self.crypto.randomUUID()}`,
                 data: reader.result,
                 recursive: true,
                 directory: Directory.Data,
-            }).then(filepath => {
+            }).then((filepath) => {
                 ft.save_track(data.track, filepath.uri);
             });
         }

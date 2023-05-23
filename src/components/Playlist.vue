@@ -6,14 +6,15 @@
             </div>
         </div>
     </div>
-    <div class="card rounded-0 border-0 m-3" v-show="loaded">
-        <div class="card-body px-3">
+    <div class="card rounded-0 border-0" v-show="loaded">
+        <div class="card-body p-4">
             <div class="row g-3">
                 <div class="col-12">
                     <div class="d-flex position-relative"
                         @contextmenu.prevent="right_click({ item: playlist, event: $event })">
                         <div class="ph rounded">
-                            <img class="playlist-img rounded" :src="get_cover(playlist.cover)" @error="placeholder" />
+                            <img class="img-square playlist-img rounded" :src="get_cover(playlist.cover)"
+                                @error="placeholder" />
                         </div>
                         <div class="position-absolute bottom-0 right-0">
                             <button class="btn btn-light action-btn bi bi-play-fill m-2" type="button"
@@ -82,8 +83,8 @@
             </div>
         </div>
     </div>
-    <div class="card rounded-0 border-0 mx-3 mt-3" v-show="loaded">
-        <div class="card-body px-3">
+    <div class="card rounded-0 border-0" v-show="loaded">
+        <div class="card-body p-3">
             <h5 class="theme-color fw-bold">Comments</h5>
             <div class="row g-3">
                 <div class="input-group">

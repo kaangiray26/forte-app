@@ -6,12 +6,12 @@
             </div>
         </div>
     </div>
-    <div class="card rounded-0 border-0 m-3" v-show="loaded">
-        <div class="card-body px-3">
+    <div class="card rounded-0 border-0" v-show="loaded">
+        <div class="card-body p-4">
             <div class="row g-3">
                 <div class="col-12">
                     <div class="ph rounded" @contextmenu.prevent="right_click({ item: artist, event: $event })">
-                        <img class="playlist-img rounded" :src="get_artist_cover(artist.cover)" />
+                        <img class="img-square playlist-img rounded" :src="get_artist_cover(artist.cover)" />
                     </div>
                 </div>
                 <div class="col d-flex flex-column">
@@ -78,8 +78,8 @@
             </div>
         </div>
     </div>
-    <div class="card rounded-0 border-0 mx-3 mt-3" v-show="loaded">
-        <div class="card-body px-3">
+    <div class="card rounded-0 border-0" v-show="loaded">
+        <div class="card-body p-4">
             <h5 class="theme-color fw-bold">Comments</h5>
             <div class="row g-3">
                 <div class="input-group">

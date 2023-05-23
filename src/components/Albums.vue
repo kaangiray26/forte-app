@@ -7,8 +7,8 @@
             </button>
         </div>
     </div>
-    <div v-show="loaded" class="card rounded-0 border-0 mx-3">
-        <div class="card-body px-3">
+    <div v-show="loaded" class="card rounded-0 border-0">
+        <div class="card-body p-4">
             <div class="d-flex justify-content-between align-items-center">
                 <h3 class="theme-color fw-bold mb-0">Albums</h3>
                 <div class="dropdown">

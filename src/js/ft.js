@@ -431,7 +431,7 @@ class Forte {
     }
 
     async get_local_tracks() {
-        return JSON.parse(localStorage.getItem('tracks'));
+        return JSON.parse(localStorage.getItem('tracks')) || [];
     }
 
     async load_local_track(track) {
@@ -839,15 +839,11 @@ class Forte {
     }
 
     async playLocalTrack(track_id) {
-        let tx = db.transaction("tracks", "readonly");
-        let store = tx.objectStore("tracks");
-        let request = store.get(track_id);
+        let tracks = JSON.parse(localStorage.getItem('tracks')) || [];
+        let track = tracks.find(track => track.id == track_id);
 
-        request.onsuccess = () => {
-            let track = request.result;
-            this.load_local_track(track);
-            // ft.addToQueueStart([track]);
-        }
+        this.load_local_track(track);
+        // ft.addToQueueStart([track]);
     }
 
     async playTrack(track_id, domain = null) {

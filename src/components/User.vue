@@ -1,6 +1,13 @@
 <template>
-    <div class="card rounded-0 border-0 m-3" v-show="loaded">
-        <div class="card-body px-3">
+    <div v-show="!loaded">
+        <div class="d-flex justify-content-center text-dark p-2">
+            <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+        </div>
+    </div>
+    <div class="card rounded-0 border-0" v-show="loaded">
+        <div class="card-body p-4">
             <div class="row g-3">
                 <div class="col-12">
                     <div class="d-flex position-relative">

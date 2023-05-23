@@ -94,17 +94,21 @@
     <div class="d-inline-flex">
         <div class="d-flex flex-column">
             <router-link to="/servers">
-                <button class="btn theme-btn  text-white fw-bold flex-nowrap text-start m-1">
+                <button class="btn theme-btn text-white fw-bold flex-nowrap text-start m-1">
                     <span class="bi bi-globe me-2"></span>
                     <span>Servers</span>
                 </button>
             </router-link>
-            <button class="btn theme-btn  text-white fw-bold flex-nowrap text-start m-1" @click="change_theme">
+            <button class="btn theme-btn text-white fw-bold flex-nowrap text-start m-1" @click="change_theme">
                 <span class="bi me-2"
                     :class="{ 'bi-sun-fill': store.theme == 'light', 'bi-moon-fill': store.theme == 'dark' }"></span>
                 <span>Theme</span>
             </button>
-            <button class="btn theme-btn  text-white fw-bold flex-nowrap text-start m-1" @click="reset_menu">
+            <button class="btn theme-btn text-white fw-bold flex-nowrap text-start m-1" @click="reload">
+                <span class="bi bi-arrow-clockwise me-2"></span>
+                <span>Reload</span>
+            </button>
+            <button class="btn theme-btn text-white fw-bold flex-nowrap text-start m-1" @click="reset_menu">
                 <span class="bi bi-box-arrow-right me-2"></span>
                 <span>Log out</span>
             </button>
@@ -178,6 +182,11 @@ async function change_theme() {
 async function reset_menu(ev) {
     ev.preventDefault();
     resetModal.value.show();
+}
+
+async function reload() {
+    window.location.reload();
+    return
 }
 
 async function openTrack(track) {
