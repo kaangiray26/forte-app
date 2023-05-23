@@ -39,6 +39,7 @@ import TrackRedirect from "/components/TrackRedirect.vue"
 
 import NotFound from "/components/NotFound.vue"
 import Servers from "/components/Servers.vue"
+import Offline from "/components/Offline.vue";
 
 const routes = [
     { path: '/:pathMatch(.*)*', component: NotFound },
@@ -98,6 +99,10 @@ const routes = [
     {
         path: "/servers",
         component: Servers
+    },
+    {
+        path: "/offline",
+        component: Offline
     },
     {
         path: '/profile',

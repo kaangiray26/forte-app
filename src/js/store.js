@@ -36,6 +36,7 @@ const store = reactive({
     notifications_granted: false,
     notifications_enabled: false,
     theme: 'light',
+    offline: false,
 });
 
 export { store, isFav }

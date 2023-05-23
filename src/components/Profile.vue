@@ -35,6 +35,7 @@
 
 <script setup>
 import { ref, onBeforeMount } from 'vue';
+import { store } from "/js/store.js";
 
 const profile = ref({});
 const cover_upload = ref(null);
@@ -85,6 +86,7 @@ async function change_cover() {
 }
 
 onBeforeMount(() => {
+    if (store.offline) return;
     get_profile();
 })
 </script>

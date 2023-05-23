@@ -35,7 +35,7 @@
         <li class="list-group-item rounded mb-1 theme-btn text-light d-flex">
             <div class="d-flex w-100 justify-content-between">
                 <div>
-                    <span class="fw-bold">{{ total }} liked tracks</span>
+                    <span class="fw-bold">{{ total }} downloaded tracks</span>
                 </div>
             </div>
         </li>
@@ -79,7 +79,6 @@ import { right_click, action } from '/js/events.js';
 const tracks = ref([]);
 
 const total = ref(0);
-const offset = ref(0);
 const searchFinished = ref(true);
 
 function get_cover(cover) {

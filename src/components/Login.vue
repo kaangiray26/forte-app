@@ -118,6 +118,7 @@
 import { ref, onMounted } from 'vue';
 import { Modal } from "bootstrap"
 import AccountEdit from './AccountEdit.vue';
+import { store } from '../js/store';
 
 let loginModal = null;
 const loginModalEl = ref(null);
@@ -256,8 +257,7 @@ onMounted(() => {
         keyboard: false
     });
 
-    let offline = JSON.parse(localStorage.getItem('offline'));
-    if (offline) {
+    if (store.offline) {
         return
     }
 

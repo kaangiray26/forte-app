@@ -330,14 +330,10 @@ class Forte {
     async check_session(session) {
         return await fetch(this.server + `/api/session/check?session=${session}`)
             .then((response) => {
-                localStorage.setItem('offline', JSON.stringify(false));
                 return response.json();
             })
-            .catch(error => {
-                if (error.message.startsWith('NetworkError')) {
-                    localStorage.setItem('offline', JSON.stringify(true));
-                    return { "status": "error", "message": "Server is down." }
-                }
+            .catch((err) => {
+                store.offline = true;
                 return { "status": "error" }
             });
     }
@@ -350,14 +346,9 @@ class Forte {
                 'Authorization': 'Basic ' + auth
             }
         }).then((response) => {
-            localStorage.setItem('offline', JSON.stringify(false));
             return response.json();
-        }).catch((error) => {
-            // Check if NetworkError
-            if (error.message.startsWith('NetworkError')) {
-                localStorage.setItem('offline', JSON.stringify(true));
-                return { "status": "error", "message": "Server is down." }
-            }
+        }).catch((err) => {
+            store.offline = true;
             return { "status": "error" }
         });
     }

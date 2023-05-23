@@ -283,6 +283,11 @@ img {
     color: var(--text-muted) !important;
 }
 
+.img-square {
+    aspect-ratio: 1/1 !important;
+    object-fit: cover;
+}
+
 /* 
 ------
 THEMES

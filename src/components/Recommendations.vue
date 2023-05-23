@@ -1,10 +1,15 @@
 <template>
-    <div v-show="!loaded">
+    <div v-show="!store.offline && !loaded">
         <div class="d-flex justify-content-center m-3">
             <button class="btn btn-dark" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Loading...
             </button>
+        </div>
+    </div>
+    <div class="card rounded-0 border-0" v-show="store.offline">
+        <div class="card-body py-3">
+            <OfflineTrack />
         </div>
     </div>
     <div class="card rounded-0 border-0 mx-3" v-show="loaded">
@@ -64,8 +69,10 @@
 
 <script setup>
 import { ref, onBeforeMount } from 'vue';
+import { store } from "/js/store.js";
 import Track from "/components/recommendation/Track.vue";
 import CarouselTrack from "/components/recommendation/CarouselTrack.vue";
+import OfflineTrack from '/components/recommendation/OfflineTrack.vue';
 
 const tracks = ref([]);
 const loaded = ref(false);

@@ -122,7 +122,10 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue'
 import { store } from '/js/store.js';
+import { useRouter } from 'vue-router';
 import Reset from '/components/Reset.vue';
+
+const router = useRouter();
 
 const resetModal = ref(null);
 
@@ -252,6 +255,10 @@ async function setup() {
 }
 
 onBeforeMount(() => {
+    if (store.offline) {
+        router.push("/offline");
+        return
+    }
     setup();
 })
 </script>

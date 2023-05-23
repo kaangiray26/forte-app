@@ -5,6 +5,13 @@
         <Animation />
         <div class="side-view d-flex">
             <div class="content-view">
+                <div v-if="store.offline" class="d-flex justify-content-between align-items-center player-card">
+                    <span class="fw-bold text-light p-0 px-2">Offline</span>
+                    <div>
+                        <button type="button" class="btn btn-dark bi bi-arrow-clockwise p-0 px-2" @click="reload"></button>
+                        <button type="button" class="btn btn-dark bi bi-x-lg p-0 px-2" @click="logout"></button>
+                    </div>
+                </div>
                 <NavigationBar />
                 <ContentView ref="thisContentView" />
             </div>
@@ -17,7 +24,6 @@
 
 <script setup>
 import { ref, onBeforeMount } from 'vue';
-import { action } from '/js/events.js';
 import { store } from '/js/store.js';
 import { useRouter } from 'vue-router';
 import { App } from '@capacitor/app';
@@ -33,46 +39,22 @@ const router = useRouter();
 const thisContentView = ref(null);
 const thisPlayer = ref(null);
 
-async function keyPress(event) {
-    // Must be synchronized in groupSession: ok
-    if (event.target.tagName != 'INPUT' && event.target.tagName != 'TEXTAREA' && event.code == 'Space') {
-        event.preventDefault();
-        action({
-            func: async function op() {
-                ft.play();
-            },
-            object: [null],
-            operation: "play"
-        });
-        return;
-    }
-
-    // Must be synchronized in groupSession: ok
-    if (event.target.tagName != 'INPUT' && event.target.tagName != 'TEXTAREA' && event.key == 'ArrowLeft') {
-        event.preventDefault();
-        action({
-            func: async function op() {
-                ft.play_previous();
-            },
-            object: [null],
-            operation: "playPrevious"
-        });
-        return;
-    }
-
-    // Must be synchronized in groupSession: ok
-    if (event.target.tagName != 'INPUT' && event.target.tagName != 'TEXTAREA' && event.key == 'ArrowRight') {
-        event.preventDefault();
-        action({
-            func: async function op() {
-                ft.play_next();
-            },
-            object: [null],
-            operation: "playNext"
-        });
-        return;
-    }
+async function reload() {
+    window.location.reload();
+    return
 }
+
+async function logout() {
+    // Clear localStorage
+    ["init", "offline", "session", "server", "username", "token", "volume", "groupSession", "groupSessionID"].map(key => {
+        localStorage.removeItem(key);
+    });
+
+    sessionStorage.clear();
+    window.location.replace("/");
+    return
+}
+
 
 onBeforeMount(() => {
     // Theme
@@ -87,17 +69,9 @@ onBeforeMount(() => {
         store.theme = theme;
     }
 
-    // let vh = window.innerHeight * 0.01;
-    // Then we set the value in the --vh custom property to the root of the document
-    // document.documentElement.style.setProperty('--vh', `${vh}px`);
-
     window.focus();
-    window.addEventListener('keydown', keyPress);
 
     App.addListener('appUrlOpen', (data) => {
-        console.log("APP URL OPEN", data);
-        // Example url: https://forte.buzl.uk/albums/1234
-        // slug = /albums/1234
         const slug = data.url.split("https://forte.buzl.uk").pop();
         if (slug) {
             console.log("ROUTING TO", slug);

@@ -75,8 +75,6 @@ public class NativePlayer extends Plugin {
         JSObject data = call.getData();
         String url = data.getString("url");
 
-        System.out.println("URL:" + url);
-
         mediaPlayer.setAudioAttributes(
             new AudioAttributes.Builder()
             .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
