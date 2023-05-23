@@ -1,6 +1,15 @@
 <template>
-    <ul class="list-group rounded-0 m-3 px-3 pb-3 theme-background">
-        <div class="hide-on-desktop card-body py-3">
+    <ul v-if="store.offline" class="list-group rounded-0 p-3 theme-background">
+        <li class="list-group-item theme-list-item-no-hover foreground theme-border d-flex justify-content-between">
+            <div class="d-flex w-100 justify-content-between">
+                <div>
+                    <span class="theme-color fw-bold">You can't search while you're offline.</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul v-if="!store.offline" class="list-group rounded-0 m-3 px-3 pb-3 theme-background">
+        <div class="card-body py-3">
             <div class="d-flex flex-column">
                 <div class="d-inline-flex input-group flex-nowrap">
                     <input ref="search_field" type="text" class="form-control search-card-input" placeholder="Search"
@@ -49,6 +58,7 @@
 
 <script setup>
 import { ref, watch, computed, onMounted } from 'vue';
+import { store } from "/js/store.js";
 import { useRouter } from 'vue-router'
 import { action, right_click } from '/js/events.js';
 import { Keyboard } from '@capacitor/keyboard';
@@ -203,6 +213,8 @@ watch(query_param, () => {
 })
 
 onMounted(() => {
+    if (store.offline) return;
+
     search_field.value.focus();
     get_search_results();
     get_federated_search_results();

@@ -42,15 +42,6 @@ const userContextModal = ref(null);
 
 const playlistSelection = ref(null);
 
-async function blobToBase64(blob) {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.readAsDataURL(blob);
-    });
-}
-
-
 async function _right_click(obj) {
     selectedItem.value = obj.item;
 

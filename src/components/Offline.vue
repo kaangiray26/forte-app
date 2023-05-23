@@ -7,7 +7,10 @@
                     <input ref="station_name" type="text" class="form-control" placeholder="Station name"
                         aria-label="Station name" aria-describedby="addon-wrapping" @keypress.enter="search_station">
                 </div>
-                <ul class="list-group p-0">
+                <div v-if="!searchFinished" class="alert alert-primary appear" role="alert">
+                    Searching...
+                </div>
+                <ul class="list-group">
                     <div v-for="station in stations">
                         <li class="list-group-item theme-list-item clickable rounded d-flex p-1">
                             <div class="d-flex w-100 foreground justify-content-between">
@@ -34,7 +37,7 @@
                     </div>
                 </ul>
             </div>
-            <ul class="list-group">
+            <ul class="list-group pt-2">
                 <li class="list-group-item rounded mb-1 theme-btn text-light d-flex">
                     <div class="d-flex w-100 justify-content-between">
                         <div>
@@ -72,6 +75,11 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { right_click, action } from '/js/events.js';
+import { CapacitorHttp } from '@capacitor/core';
+import { Keyboard } from '@capacitor/keyboard';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const tracks = ref([]);
 
@@ -80,7 +88,6 @@ const searchFinished = ref(true);
 
 const stations = ref([]);
 const station_name = ref(null);
-const selectedStation = ref(null);
 
 function get_cover(cover) {
     if (!cover) {
@@ -113,11 +120,7 @@ async function get_local_tracks() {
     let data = await ft.get_local_tracks();
     if (!data) return;
 
-    // Push track placeholders
-    for (let i = 0; i < data.length; i++) {
-        tracks.value.push(data[i]);
-    }
-
+    tracks.value = data;
     total.value = data.length;
 }
 
@@ -133,13 +136,26 @@ async function search_station() {
         return;
     }
 
-    let data = await ft.API("/station/search/" + name);
-    if (!data || data.error) {
-        return;
-    }
+    let data = await CapacitorHttp.get({
+        url: "https://opml.radiotime.com/search.ashx",
+        params: {
+            query: name,
+            render: "json",
+        }
+    })
+        .then(res => res.data.body)
+        .catch(() => null);
 
-    stations.value = data.stations;
+    stations.value = data.filter((station) => station.type == "audio");
     searchFinished.value = true;
+}
+
+async function openStation(id) {
+    router.push("/station/" + id);
+}
+
+async function play_station(station) {
+    ft.playStation(station);
 }
 
 onMounted(() => {

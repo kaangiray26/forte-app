@@ -3,6 +3,7 @@
 
 import { store } from './store';
 import { MediaControl, NativePlayer } from '/js/plugins.js';
+import { CapacitorHttp } from '@capacitor/core';
 
 class Forte {
     constructor() {
@@ -14,20 +15,23 @@ class Forte {
 
         this.track = null;
 
-        NativePlayer.addListener('timeupdate', (data) => {
-            store.playing.seek = data.position;
-            store.playing.progress = (store.playing.seek / store.playing.duration) * 100;
-        });
+        NativePlayer.removeAllListeners()
+            .then(() => {
+                NativePlayer.addListener('timeupdate', (data) => {
+                    store.playing.seek = data.position;
+                    store.playing.progress = (store.playing.seek / store.playing.duration) * 100;
+                });
 
-        NativePlayer.addListener('load', (data) => {
-            this.track_loaded(data);
-            this.track_quality();
-            this.track_lyrics();
-        })
+                NativePlayer.addListener('load', (data) => {
+                    this.track_loaded(data);
+                    this.track_quality();
+                    this.track_lyrics();
+                })
 
-        NativePlayer.addListener('end', () => {
-            this.track_finished()
-        })
+                NativePlayer.addListener('end', () => {
+                    this.track_finished()
+                })
+            });
     }
 
     async init() {
@@ -410,29 +414,24 @@ class Forte {
         });
 
         // Get station url
-        let response = await this.API(`/station/${station.guide_id}/url`);
-        if (!response || !response.url) return;
+        let response = await CapacitorHttp.get({
+            url: "https://opml.radiotime.com/Tune.ashx",
+            params: {
+                id: station.guide_id,
+            }
+        })
+            .then(res => res.data)
+            .catch(() => null);
+        if (!response || !response) return;
 
         NativePlayer.playDataSource({
-            url: response.url
+            url: response
         });
         document.title = station.text;
     }
 
     async get_local_tracks() {
-        return new Promise((resolve, reject) => {
-            let tx = window.db.transaction('tracks', 'readwrite');
-            let store = tx.objectStore('tracks');
-            let request = store.getAll()
-
-            request.onsuccess = (event) => {
-                resolve(request.result);
-            }
-
-            request.onerror = (event) => {
-                reject(request.error);
-            }
-        })
+        return JSON.parse(localStorage.getItem('tracks'));
     }
 
     async load_local_track(track) {
@@ -467,9 +466,9 @@ class Forte {
     }
 
     async save_track(track, uri) {
-        let tx = window.db.transaction('tracks', 'readwrite');
-        let store = tx.objectStore('tracks');
-        store.add({
+        // Save track to localStorage
+        let tracks = JSON.parse(localStorage.getItem('tracks')) || [];
+        tracks.push({
             id: track.id,
             type: track.type,
             title: track.title,
@@ -477,7 +476,8 @@ class Forte {
             album: track.album,
             artist: track.artist,
             path: uri
-        })
+        });
+        localStorage.setItem('tracks', JSON.stringify(tracks));
     }
 
     async load_track(track) {

@@ -47,7 +47,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { right_click } from '/js/events.js';
+import { CapacitorHttp } from '@capacitor/core';
 
 const router = useRouter();
 
@@ -72,12 +72,21 @@ async function play_station() {
 
 async function get_station(id) {
     // Get station info
-    let data = await ft.API("/station/" + id);
+    let data = await CapacitorHttp.get({
+        url: "https://opml.radiotime.com/Describe.ashx",
+        params: {
+            id: id,
+            render: "json",
+        }
+    })
+        .then(res => res.data.body[0])
+        .catch(() => null);
+
     if (!data || data.error) {
         return;
     }
 
-    station.value = data.station;
+    station.value = data;
     loaded.value = true;
 }
 

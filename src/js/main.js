@@ -12,21 +12,8 @@ import '/scss/styles.scss'
 import '/assets/styles.css'
 import '/assets/bootstrap-icons.css'
 
-// Create IndexedDB
-let request = window.indexedDB.open("forte", 1);
-
-request.onsuccess = () => {
-    window.db = request.result;
-    console.log("IndexedDB ready.");
-}
-
-request.onupgradeneeded = () => {
-    let db = request.result;
-    if (!db.objectStoreNames.contains('tracks')) {
-        db.createObjectStore('tracks', { keyPath: 'id' });
-    }
-    console.log("Objectstorage created.");
-}
+// Create DB
+localStorage.setItem('tracks', JSON.stringify([]));
 
 window.ft = new Forte();
 window.ft.init().then(async () => {

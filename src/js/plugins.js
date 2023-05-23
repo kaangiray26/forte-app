@@ -26,12 +26,15 @@ if (window.navigator.mediaSession) {
         addListener: async function (obj) {
             return
         },
+        removeAllListeners: async function (obj) {
+            return
+        },
         play: async function (obj) {
             return
         },
         pause: async function (obj) {
             return
-        }
+        },
     }
 } else {
     MediaControl = registerPlugin('MediaControl');
