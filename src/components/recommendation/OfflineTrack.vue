@@ -3,7 +3,7 @@
         <div class="p-0">
             <div class="position-relative rounded">
                 <div class="ph rounded" @click="open_downloads">
-                    <img class="img-square img-fluid placeholder-img rounded" src="images/tricks.jpg">
+                    <img class="img-square img-fluid placeholder-img rounded" src="/images/tricks.jpg">
                 </div>
                 <div class="position-absolute bottom-0 right-0 m-2">
                     <button class="btn btn-light action-btn bi bi-play-fill" type="button" @click="open_downloads">
