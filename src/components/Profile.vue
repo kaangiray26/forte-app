@@ -12,7 +12,7 @@
             <div class="row g-3">
                 <div class="col-12">
                     <div class="d-flex position-relative">
-                        <div class="ph rounded">
+                        <div class="ph-friend-full">
                             <img class="img-square playlist-img rounded" :src="get_cover()" @error="placeholder" />
                         </div>
                         <div class="position-absolute bottom-0 right-0">
@@ -42,12 +42,12 @@ const cover_upload = ref(null);
 const loaded = ref(false);
 
 async function placeholder(obj) {
-    obj.target.src = "/images/friend.svg";
+    obj.target.remove();
 }
 
 function get_cover() {
     if (!profile.value.cover) {
-        return "/images/friend.svg"
+        return null;
     }
 
     if (profile.value.cover.startsWith("http")) {

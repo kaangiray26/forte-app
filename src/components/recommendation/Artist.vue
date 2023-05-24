@@ -2,7 +2,7 @@
     <div class="card h-100 w-100 border-0" @contextmenu.prevent="right_click({ item: props.artist, event: $event })">
         <div class="p-0">
             <div class="position-relative rounded">
-                <div class="ph rounded" @click="openArtist">
+                <div class="ph-artist-full" @click="openArtist">
                     <img class="img-fluid placeholder-img rounded" :src="get_cover(props.artist.cover)"
                         @error="placeholder" />
                 </div>
@@ -24,7 +24,7 @@ import { right_click } from '/js/events.js';
 const router = useRouter();
 
 async function placeholder(obj) {
-    obj.target.src = "/images/artist.svg";
+    obj.target.remove();
 }
 
 function get_cover(cover) {

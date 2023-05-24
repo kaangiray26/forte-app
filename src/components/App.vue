@@ -8,8 +8,8 @@
                 <div v-if="store.offline" class="d-flex justify-content-between align-items-center player-card">
                     <span class="fw-bold text-light p-0 px-2">Offline</span>
                     <div>
-                        <button type="button" class="btn btn-dark bi bi-arrow-clockwise p-0 px-2" @click="reload"></button>
-                        <button type="button" class="btn btn-dark bi bi-x-lg p-0 px-2" @click="logout"></button>
+                        <button type="button" class="btn btn-touch player-card text-light bi bi-arrow-clockwise"
+                            @click="reload"></button>
                     </div>
                 </div>
                 <NavigationBar />
@@ -44,18 +44,6 @@ async function reload() {
     return
 }
 
-async function logout() {
-    // Clear localStorage
-    ["init", "offline", "session", "server", "username", "token", "volume", "groupSession", "groupSessionID"].map(key => {
-        localStorage.removeItem(key);
-    });
-
-    sessionStorage.clear();
-    window.location.replace("/");
-    return
-}
-
-
 onBeforeMount(() => {
     // Theme
     let theme = JSON.parse(localStorage.getItem("theme"));
@@ -69,12 +57,9 @@ onBeforeMount(() => {
         store.theme = theme;
     }
 
-    window.focus();
-
     App.addListener('appUrlOpen', (data) => {
-        const slug = data.url.split("https://forte.buzl.uk").pop();
+        let slug = data.url.split("https://forte.buzl.uk").pop();
         if (slug) {
-            console.log("ROUTING TO", slug);
             router.push(slug);
         }
     });

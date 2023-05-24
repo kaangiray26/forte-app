@@ -17,8 +17,7 @@ if (window.navigator.mediaSession) {
             navigator.mediaSession.metadata = new MediaMetadata(obj);
             return
         }
-    }
-
+    };
     NativePlayer = {
         playDataSource: async function (obj) {
             return

@@ -51,7 +51,9 @@
             v-for="album in albums" @contextmenu.prevent="right_click({ item: album, event: $event })"
             @click="openAlbum(album)">
             <div class="d-flex flex-fill foreground align-items-center">
-                <img :src="get_cover(album.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                <div class="ph-album">
+                    <img :src="get_cover(album.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                </div>
                 <div class="d-flex align-items-center">
                     <button class="btn btn-link search-link d-flex text-start py-0" :content_id="album.id"
                         :content_type="album.type" style="display:contents;">
@@ -108,7 +110,7 @@ async function play_album(album) {
 }
 
 async function placeholder(obj) {
-    obj.target.src = "/images/album.svg";
+    obj.target.remove();
 }
 
 function get_cover(cover) {

@@ -1,9 +1,10 @@
 <template>
     <div v-show="!loaded">
-        <div class="d-flex justify-content-center text-dark p-2">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+        <div class="d-flex justify-content-center m-3">
+            <button class="btn btn-dark" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
         </div>
     </div>
     <div class="card rounded-0 border-0" v-show="loaded">
@@ -11,7 +12,7 @@
             <div class="row g-3">
                 <div class="col-12">
                     <div class="d-flex position-relative">
-                        <div class="ph rounded">
+                        <div class="ph-friend-full">
                             <img class="playlist-img rounded" :src="get_cover()" @error="placeholder" />
                         </div>
                         <div class="position-absolute bottom-0 right-0">
@@ -60,7 +61,7 @@ const query_param = computed(() => {
 })
 
 async function placeholder(obj) {
-    obj.target.src = "/images/friend.svg";
+    obj.target.remove();
 }
 
 function get_cover() {

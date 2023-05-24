@@ -51,7 +51,10 @@
                     <div class="d-flex w-100 foreground justify-content-between">
                         <div class="d-flex">
                             <div class="d-inline-flex justify-content-center align-items-center position-relative">
-                                <img :src="station.image" class="track-cover theme-border rounded" @error="placeholder" />
+                                <div class="ph-station">
+                                    <img :src="station.image" class="track-cover theme-border rounded"
+                                        @error="placeholder" />
+                                </div>
                                 <div class="position-absolute shadow opacity-75">
                                     <button class="btn btn-light action-btn bi bi-play-fill" type="button"
                                         @click="play_station(station)">
@@ -91,12 +94,11 @@ function get_station_address() {
     if (document.body.classList.contains("dark-theme")) {
         background = '?background=dark'
     }
-    console.log("https://gemini.tunein.com/embed/player/" + selectedStation.value + background)
     return "https://gemini.tunein.com/embed/player/" + selectedStation.value + background;
 }
 
 async function placeholder(obj) {
-    obj.target.src = "/images/station.svg";
+    obj.target.remove();
 }
 
 async function openStation(id) {

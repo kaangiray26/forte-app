@@ -47,7 +47,9 @@
             v-for="artist in artists" @contextmenu.prevent="right_click({ item: artist, event: $event })"
             @click="openArtist(artist)">
             <div class="d-flex flex-fill foreground align-items-center">
-                <img :src="get_cover(artist.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                <div class="ph-artist">
+                    <img :src="get_cover(artist.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                </div>
                 <div class="d-flex align-items-center">
                     <button class="btn btn-link search-link d-flex text-start py-0" :content_id="artist.id"
                         :content_type="artist.type" style="display:contents;">
@@ -84,6 +86,10 @@ const artists = ref([]);
 const total = ref(0);
 const offset = ref(0);
 const searchFinished = ref(true);
+
+async function placeholder(obj) {
+    obj.target.remove();
+}
 
 function get_cover(cover) {
     if (cover) {

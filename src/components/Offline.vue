@@ -2,6 +2,12 @@
     <div class="card rounded-0 border-0">
         <div class="card-body py-3">
             <div>
+                <div
+                    class="d-flex w-100 list-group-item rounded mb-1 theme-btn text-light justify-content-between px-3 py-2">
+                    <div>
+                        <span class="fw-bold">Stations</span>
+                    </div>
+                </div>
                 <div class="input-group flex-nowrap mb-2">
                     <span class="input-group-text bi bi-broadcast" id="addon-wrapping"></span>
                     <input ref="station_name" type="text" class="form-control" placeholder="Station name"
@@ -37,11 +43,12 @@
                     </div>
                 </ul>
             </div>
+            <hr>
             <ul class="list-group pt-2">
                 <li class="list-group-item rounded mb-1 theme-btn text-light d-flex">
                     <div class="d-flex w-100 justify-content-between">
                         <div>
-                            <span class="fw-bold">{{ total }} downloaded tracks</span>
+                            <span class="fw-bold">Downloaded tracks</span>
                         </div>
                     </div>
                 </li>
@@ -57,7 +64,10 @@
                     v-for="track in tracks" @contextmenu.prevent="right_click({ item: track, event: $event })"
                     @click="playTrack(track)">
                     <div class="d-flex flex-fill foreground align-items-center">
-                        <img :src="get_cover(track.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                        <div class="ph-track rounded">
+                            <img :src="get_cover(track.cover)" class="track-cover theme-border rounded"
+                                @error="placeholder" />
+                        </div>
                         <div class="d-flex align-items-center">
                             <button class="btn btn-link search-link d-flex text-start py-0" :content_id="track.id"
                                 :content_type="track.type" style="display:contents;">
@@ -68,6 +78,13 @@
                     </div>
                 </li>
             </ul>
+            <hr>
+            <div>
+                <button class="btn theme-btn text-white fw-bold flex-nowrap text-start m-1" @click="logout">
+                    <span class="bi bi-box-arrow-right me-2"></span>
+                    <span>Log out</span>
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -102,7 +119,7 @@ function get_cover(cover) {
 }
 
 async function placeholder(obj) {
-    obj.target.src = "/images/track.svg";
+    obj.target.remove();
 }
 
 // Must be synchronized in groupSession: ok
@@ -156,6 +173,16 @@ async function openStation(id) {
 
 async function play_station(station) {
     ft.playStation(station);
+}
+
+async function logout() {
+    // Clear localStorage
+    ["init", "offline", "session", "server", "username", "token", "volume", "groupSession", "groupSessionID"].map(key => {
+        localStorage.removeItem(key);
+    });
+
+    sessionStorage.clear();
+    window.location.replace("/");
 }
 
 onMounted(() => {

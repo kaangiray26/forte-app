@@ -54,7 +54,9 @@
             v-for="playlist in playlists" @contextmenu.prevent="right_click({ item: playlist, event: $event })"
             @click="openPlaylist(playlist)">
             <div class="d-flex flex-fill foreground align-items-center">
-                <img :src="get_cover(playlist.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                <div class="ph-playlist">
+                    <img :src="get_cover(playlist.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                </div>
                 <div class="d-flex align-items-center">
                     <button class="btn btn-link search-link d-flex text-start py-0" :content_id="playlist.id"
                         :content_type="playlist.type" style="display:contents;">
@@ -116,7 +118,7 @@ async function openPlaylist(playlist) {
 }
 
 async function placeholder(obj) {
-    obj.target.src = "/images/track.svg";
+    obj.target.remove();
 }
 
 // Must be synchronized in groupSession: ok

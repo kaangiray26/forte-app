@@ -166,7 +166,7 @@ img {
 .action-btn {
     aspect-ratio: 1 / 1;
     border-radius: 50% !important;
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.45) !important;
 }
 
 .appear {
@@ -263,6 +263,114 @@ img {
     background-color: #868E96;
 }
 
+.ph-track {
+    width: 56px;
+    height: 56px;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/track.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-station {
+    width: 56px;
+    height: 56px;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/station.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-artist {
+    width: 56px;
+    height: 56px;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/artist.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-album {
+    width: 56px;
+    height: 56px;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/album.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-playlist {
+    width: 56px;
+    height: 56px;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/cassette.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-track-full {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/track.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-album-full {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/album.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-artist-full {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/artist.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-playlist-full {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/cassette.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-station-full {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/station.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-friend-full {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/friend.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
+.ph-track-carousel {
+    width: calc(100vw/2);
+    height: auto;
+    aspect-ratio: 1/1;
+    background-size: contain;
+    background-image: url("/images/track.svg");
+    border-radius: var(--bs-border-radius) !important;
+}
+
 .bg-transparent {
     background-color: transparent !important;
 }
@@ -286,6 +394,14 @@ img {
 .img-square {
     aspect-ratio: 1/1 !important;
     object-fit: cover;
+}
+
+.btn-touch {
+    border: 0 !important;
+}
+
+.btn-touch:active {
+    color: var(--text-muted) !important;
 }
 
 /* 

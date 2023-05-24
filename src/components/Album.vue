@@ -1,16 +1,17 @@
 <template>
     <div v-show="!loaded">
-        <div class="d-flex justify-content-center text-dark p-2">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+        <div class="d-flex justify-content-center m-3">
+            <button class="btn btn-dark" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
         </div>
     </div>
     <div class="card rounded-0 border-0" v-show="loaded">
         <div class="card-body p-4">
             <div class="row g-3">
                 <div class="col-12">
-                    <div class="ph rounded d-flex position-relative"
+                    <div class="ph-album-full d-flex position-relative"
                         @contextmenu.prevent="right_click({ item: album, event: $event })">
                         <img class="img-square playlist-img rounded" :src="get_cover(album.cover)" @error="placeholder" />
                         <div class="position-absolute bottom-0 right-0">
@@ -55,7 +56,7 @@
                                 @click="play_track(track.id)">
                                 <div class="d-flex w-100 justify-content-between">
                                     <div class="d-flex">
-                                        <div class="d-flex align-items-center">
+                                        <div class="ph-track d-flex align-items-center">
                                             <img :src="get_track_cover(album.cover)"
                                                 class="track-cover theme-border rounded" @error="track_placeholder" />
                                         </div>
@@ -144,11 +145,11 @@ const query_param = computed(() => {
 })
 
 async function placeholder(obj) {
-    obj.target.src = "/images/album.svg";
+    obj.target.remove();
 }
 
 async function track_placeholder(obj) {
-    obj.target.src = "/images/track.svg";
+    obj.target.remove();
 }
 
 function get_genre(genre) {

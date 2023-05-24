@@ -5,15 +5,16 @@ import { store } from './store';
 import { MediaControl, NativePlayer } from '/js/plugins.js';
 import { CapacitorHttp } from '@capacitor/core';
 
+let dt = Date.now();
+
 class Forte {
     constructor() {
         this.ready = null;
         this.token = null;
         this.server = null;
+        this.track = null;
         this.username = null;
         this.session = null;
-
-        this.track = null;
 
         NativePlayer.removeAllListeners()
             .then(() => {
@@ -59,13 +60,29 @@ class Forte {
         this.server = server;
         this.username = username;
 
+        // Check if server is offline
+        let ping = await fetch(this.server + '/ping', {
+            method: "HEAD",
+        })
+            .then((res) => {
+                return { "status": "success" }
+            })
+            .catch((err) => {
+                return { "status": "error" }
+            });
+
+        if (ping.status == "error") {
+            store.offline = true;
+            return
+        }
+
         // Check session
         if (session) {
             let response = await this.check_session(session);
             if (response.status == "success") {
+                localStorage.setItem('init', JSON.stringify(true));
                 this.ready = true;
                 this.session = session;
-                localStorage.setItem('init', JSON.stringify(true));
                 return
             }
         }
@@ -561,7 +578,6 @@ class Forte {
     }
 
     async listen_progress() {
-        console.log("AddListener");
         NativePlayer.addListener('timeupdate', (data) => {
             store.playing.seek = data.position;
             store.playing.progress = (store.playing.seek / store.playing.duration) * 100;

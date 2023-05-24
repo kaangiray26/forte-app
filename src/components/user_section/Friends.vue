@@ -94,7 +94,6 @@ async function openProfile(id) {
 }
 
 async function get_friend(username) {
-    console.log(username);
     // Check for federated
     if (username.includes('@')) {
         let domain = null;

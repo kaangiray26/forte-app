@@ -51,7 +51,9 @@
             v-for="track in tracks" @contextmenu.prevent="right_click({ item: track, event: $event })"
             @click="playTrack(track)">
             <div class="d-flex flex-fill foreground align-items-center">
-                <img :src="get_cover(track.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                <div class="ph-track">
+                    <img :src="get_cover(track.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                </div>
                 <div class="d-flex align-items-center">
                     <button class="btn btn-link search-link d-flex text-start py-0" :content_id="track.id"
                         :content_type="track.type" style="display:contents;">
@@ -93,7 +95,7 @@ function get_cover(cover) {
 }
 
 async function placeholder(obj) {
-    obj.target.src = "/images/track.svg";
+    obj.target.remove();
 }
 
 // Must be synchronized in groupSession: ok

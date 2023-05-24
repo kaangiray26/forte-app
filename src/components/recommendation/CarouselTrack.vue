@@ -1,7 +1,7 @@
 <template>
     <div class="card border-0" @contextmenu.prevent="right_click({ item: props.track, event: $event })">
         <div class="p-0">
-            <div class="ph rounded" @click="openTrack">
+            <div class="ph-track-carousel" @click="openTrack">
                 <img class="img-square carousel-img rounded" :src="get_cover(props.track.cover)" @error="placeholder" />
             </div>
             <div class="mt-2">
@@ -19,7 +19,7 @@ import { right_click } from '/js/events.js';
 const router = useRouter();
 
 async function placeholder(obj) {
-    obj.target.src = "/images/track.svg";
+    obj.target.remove();
 }
 
 function get_cover(cover) {

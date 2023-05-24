@@ -14,13 +14,16 @@ import '/assets/bootstrap-icons.css'
 
 window.ft = new Forte();
 window.ft.init().then(async () => {
+    createApp(App).use(router).mount('#app');
+    console.log("Forte is ready to use!", new Date().toLocaleTimeString());
+
     // setPlaybackState to NONE
-    await MediaControl.setPlaybackState({
+    MediaControl.setPlaybackState({
         state: "none"
     });
 
     // play Action Listener
-    await MediaControl.addListener('fortePlayAction', () => {
+    MediaControl.addListener('fortePlayAction', () => {
         action({
             func: async function op() {
                 window.ft.play();
@@ -31,7 +34,7 @@ window.ft.init().then(async () => {
     });
 
     // // pause Action Listener
-    await MediaControl.addListener('fortePauseAction', () => {
+    MediaControl.addListener('fortePauseAction', () => {
         action({
             func: async function op() {
                 window.ft.play();
@@ -42,7 +45,7 @@ window.ft.init().then(async () => {
     });
 
     // next Action Listener
-    await MediaControl.addListener('forteNextAction', () => {
+    MediaControl.addListener('forteNextAction', () => {
         action({
             func: async function op() {
                 window.ft.play_next();
@@ -53,7 +56,7 @@ window.ft.init().then(async () => {
     });
 
     // previous Action Listener
-    await MediaControl.addListener('fortePreviousAction', () => {
+    MediaControl.addListener('fortePreviousAction', () => {
         action({
             func: async function op() {
                 window.ft.play_previous();
@@ -62,7 +65,4 @@ window.ft.init().then(async () => {
             operation: "playPrevious"
         });
     });
-
-    console.log("Forte initialized.");
-    createApp(App).use(router).mount('#app');
 });

@@ -46,7 +46,9 @@
             v-for="playlist in playlists" @contextmenu.prevent="right_click({ item: playlist, event: $event })"
             @click="openPlaylist(playlist)">
             <div class="d-flex flex-fill foreground align-items-center">
-                <img :src="get_cover(playlist.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                <div class="ph-playlist">
+                    <img :src="get_cover(playlist.cover)" class="track-cover theme-border rounded" @error="placeholder" />
+                </div>
                 <div class="d-flex">
                     <button class="btn btn-link search-link d-flex text-start py-0" :content_id="playlist.id"
                         :content_type="playlist.type" style="display:contents;">
@@ -83,6 +85,10 @@ const username = ref(router.currentRoute.value.params.id)
 const total = ref(0);
 const offset = ref(0);
 const searchFinished = ref(true);
+
+async function placeholder(obj) {
+    obj.target.remove();
+}
 
 function get_cover(cover) {
     if (cover) {

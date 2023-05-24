@@ -1,17 +1,19 @@
 <template>
     <div v-show="!loaded">
-        <div class="d-flex justify-content-center text-dark p-2">
-            <div class="spinner-border" role="status">
-                <span class="visually-hidden">Loading...</span>
-            </div>
+        <div class="d-flex justify-content-center m-3">
+            <button class="btn btn-dark" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
         </div>
     </div>
     <div class="card rounded-0 border-0" v-show="loaded">
         <div class="card-body p-4">
             <div class="row g-3">
                 <div class="col-12">
-                    <div class="ph rounded" @contextmenu.prevent="right_click({ item: artist, event: $event })">
-                        <img class="img-square playlist-img rounded" :src="get_artist_cover(artist.cover)" />
+                    <div class="ph-artist-full" @contextmenu.prevent="right_click({ item: artist, event: $event })">
+                        <img class="img-square playlist-img rounded" :src="get_artist_cover(artist.cover)"
+                            @error="placeholder" />
                     </div>
                 </div>
                 <div class="col d-flex flex-column">
@@ -49,8 +51,10 @@
                             <div class="d-flex w-100 justify-content-between">
                                 <div class="d-flex">
                                     <div class="d-flex align-items-center">
-                                        <img :src="get_album_cover(album.cover)" class="track-cover theme-border rounded"
-                                            @error="placeholder" />
+                                        <div class="ph-track">
+                                            <img :src="get_album_cover(album.cover)"
+                                                class="track-cover theme-border rounded" @error="placeholder" />
+                                        </div>
                                     </div>
                                     <div class="d-flex flex-column justify-content-center">
                                         <div class="btn btn-link search-link d-flex flex-row text-start py-0"
@@ -145,7 +149,7 @@ const lastfm_btn = ref(null);
 
 
 async function placeholder(obj) {
-    obj.target.src = "/images/album.svg";
+    obj.target.remove();
 }
 
 function format_date(dt) {

@@ -2,7 +2,7 @@
     <div class="card h-100 w-100 border-0">
         <div class="p-0">
             <div class="position-relative rounded">
-                <div class="ph rounded" @click="open_downloads">
+                <div class="ph-track-full" @click="open_downloads">
                     <img class="img-square img-fluid placeholder-img rounded" src="/images/tricks.jpg">
                 </div>
                 <div class="position-absolute bottom-0 right-0 m-2">
