@@ -46,13 +46,13 @@
             </div>
         </div>
         <div class="input-group flex-nowrap mb-2">
-            <span class="input-group-text foreground-no-border theme-color theme-border" id="basic-addon1">Scrobbling</span>
-            <button v-show="!lastfm_config.scrobbling" type="button" class="btn btn-danger flex-fill rounded-end"
+            <span class="input-group-text foreground-no-border theme-color" id="basic-addon1">Scrobbling</span>
+            <button v-show="!lastfm_config.scrobbling" type="button" class="btn btn-danger rounded-end"
                 @click="toggle_scrobbling">Off</button>
-            <button v-show="lastfm_config.scrobbling" type="button" class="btn btn-success flex-fill rounded-end"
+            <button v-show="lastfm_config.scrobbling" type="button" class="btn btn-success rounded-end"
                 @click="toggle_scrobbling">On</button>
         </div>
-        <div v-if="lastfm_auth" class="border theme-border rounded p-2">
+        <div v-if="lastfm_auth" class="border rounded p-2">
             <div class="input-group">
                 <span class="input-group-text bi bi-person-circle" id="basic-addon2"></span>
                 <input ref="username" type="text" class="form-control" placeholder="Username" aria-label="Username"

@@ -46,15 +46,11 @@ async function placeholder(obj) {
 }
 
 function get_cover() {
-    if (!profile.value.cover) {
-        return null;
+    if (profile.value.cover) {
+        return ft.server + '/' + profile.value.cover;
     }
 
-    if (profile.value.cover.startsWith("http")) {
-        return cover;
-    }
-
-    return ft.server + '/' + profile.value.cover;
+    return "/images/friend.svg";
 }
 
 async function get_profile() {

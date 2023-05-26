@@ -591,10 +591,6 @@ hr {
     border-radius: var(--bs-border-radius) !important;
 }
 
-.theme-border {
-    border: 1px solid var(--input-border-color);
-}
-
 .theme-shadow {
     box-shadow: 0 0 1rem var(--shadow-color) !important;
 }
@@ -605,8 +601,4 @@ hr {
 
 .theme-label::after {
     background-color: transparent !important;
-}
-
-.theme-border {
-    border-color: var(--border-color) !important;
 }

@@ -45,7 +45,7 @@
             </div>
             <hr>
             <ul class="list-group pt-2">
-                <li class="list-group-item rounded mb-1 theme-btn text-light d-flex">
+                <li class="list-group-item rounded mb-0 theme-btn text-light d-flex">
                     <div class="d-flex w-100 justify-content-between">
                         <div>
                             <span class="fw-bold">Downloaded tracks</span>

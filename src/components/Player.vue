@@ -26,7 +26,7 @@
                     </div>
                 </div>
             </div>
-            <div class="progress progress-minified flex-fill mx-2 mt-0">
+            <div class="progress progress-minified flex-fill mx-2 mt-1">
                 <div class="progress-bar theme-btn progress-bar-animated" aria-valuenow="0" aria-valuemin="0"
                     aria-valuemax="100" :style="{ 'width': store.playing.progress + '%' }">
                 </div>
@@ -72,7 +72,7 @@ const group_key = ref(0);
 const qualityDisplay = ref(null);
 
 async function placeholder(obj) {
-    obj.target.remove();
+    obj.target.src = "/images/track.svg";
 }
 
 function get_cover(cover) {
