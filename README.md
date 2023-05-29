@@ -2,7 +2,7 @@
     <a href="https://github.com/kaangiray26/forte-app">
         <img src="images/app_icon.png" alt="Forte Logo" width="80" height="80">
     </a>
-    <h1 align="center">Forte</h1>
+    <h1 align="center">Forte App</h1>
     <img alt="Quote" src="https://img.shields.io/badge/OWN%20YOUR%20MUSIC-blue?style=flat-square">
     <p align="center">
         The Official Forte Android App
